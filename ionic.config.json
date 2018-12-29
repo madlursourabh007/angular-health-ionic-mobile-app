@@ -1,0 +1,7 @@
+{
+  "name": "O2Medicine",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
