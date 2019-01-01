@@ -1,0 +1,61 @@
+<ion-content padding style="background: #D3D3D3;">
+  <form [formGroup]="loginForm" style="display: flex;justify-content: center;height: 100vh;align-items: center;">
+     <ion-card>
+       <ion-list>
+        
+        <div style="display: flex;justify-content: center;align-items: center;margin-top:2%;font-weight: bold;font-size: 20px;color: #808080">
+          SIGN IN
+        </div>
+        
+        <ion-item>
+          <ion-label floating>Username</ion-label>
+          <ion-input type="text" formControlName="userName"></ion-input>
+        </ion-item>
+        <div class="divErrorMessage" *ngIf="loginForm.controls.userName.invalid && (loginForm.controls.userName.dirty || loginForm.controls.userName.touched)">username required</div>
+
+        <ion-item no-lines>
+          <ion-label floating>Password</ion-label>
+          <ion-input type="password" formControlName="userPassword"></ion-input>
+        </ion-item>
+        <div class="divErrorMessage" *ngIf="loginForm.controls.userPassword.invalid && (loginForm.controls.userPassword.dirty || loginForm.controls.userPassword.touched)">password required</div><br />
+
+        <div style="display: flex;justify-content: center;">
+          <button ion-button class="buttonColor" [disabled]="!loginForm.valid">SIGN IN</button>
+          <button class="buttonColor" ion-button (click)="askInvitationCode()">SIGN UP</button>
+        </div>
+
+       </ion-list>
+     </ion-card>
+  </form>
+  <!-- <div style="display: flex;justify-content: center;height: 100vh;align-items: center;">
+    <ion-card>
+      <ion-list>
+        <form [formGroup]="loginForm">
+          <ion-item no-lines style="text-align: center">
+            <h3>LOGIN</h3>
+          </ion-item>
+            
+          <ion-item no-lines>
+            <ion-label floating>Username</ion-label>
+            <ion-input type="text" formControlName="userName"></ion-input>
+            <div class="divErrorMessage" *ngIf="loginForm.controls.userName.invalid && (loginForm.controls.userName.dirty || loginForm.controls.userName.touched)">username required</div>
+            </ion-item>
+            
+          <ion-item no-lines>
+            <ion-label floating>Password</ion-label>
+            <ion-input type="password" formControlName="userPassword"></ion-input>
+            <div class="divErrorMessage" *ngIf="loginForm.controls.userPassword.invalid && (loginform.controls.userPassword.dirty || loginForm.controls.userPassword.touched)">password required</div>
+          </ion-item>
+
+          <ion-item style="display: flex;justify-content: center;align-items: center;">
+            <ion-row>
+              <ion-col col-6>
+                <button ion-col-3 ion-button style="background: 	#A9A9A9">LOGIN</button>
+              </ion-col>
+            </ion-row>
+          </ion-item>
+        </form>
+      </ion-list>
+    </ion-card>
+  </div> -->
+</ion-content>
