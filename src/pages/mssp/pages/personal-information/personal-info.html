@@ -1,0 +1,81 @@
+<ion-header>
+    <ion-navbar #content>
+        <ion-buttons left>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <div style="display: flex;justify-content: center;font-weight: bold;font-size:15px;">MSSP PERSONAL INFORMATION</div>
+        <ion-buttons right>
+            <button ion-button icon-only>
+                <ion-icon md="md-log-out"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <form [formGroup]="personalFormGroup">
+        <ion-list>
+            <ion-item>
+                <ion-label floating>FIRST NAME</ion-label>
+                <ion-input type="text" formControlName="firstname"></ion-input>
+            </ion-item>
+            <ion-item >
+                <ion-label floating>MIDDLE NAME</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>LAST NAME</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>DOB</ion-label>
+                <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY"></ion-datetime>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>PAN</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>AADHAAR</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>BANK ACCOUNT NUMBER</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>IFSC</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>BANK</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>BRANCH</ion-label>
+                <ion-input type="text"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                <ion-label floating>Email</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
+            </ion-item>
+            <div *ngIf="personalFormGroup.controls.email.inavlid">
+                Correct one plz
+            </div>
+        </ion-list>
+        <div style="display: flex;justify-content: center;">
+            <button ion-button class="buttonColor">SAVE</button>
+            <button ion-button class="buttonColor">SUBMIT</button>
+        </div>
+    </form>
+</ion-content>

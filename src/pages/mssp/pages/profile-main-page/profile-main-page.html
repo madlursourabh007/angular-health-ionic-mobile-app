@@ -1,0 +1,57 @@
+<ion-header>
+        <ion-navbar #content>
+          <ion-buttons left>
+            <button ion-button icon-only menuToggle>
+              <ion-icon name="menu"></ion-icon>
+            </button>
+          </ion-buttons>
+          <div style="display: flex;justify-content: center;font-size: 15px;font-weight: bold">MSSP PROFILE MAIN PAGE</div>
+          <ion-buttons right>
+            <button icon-button icon-only>
+              <ion-icon md="md-log-out"></ion-icon>
+            </button>
+          </ion-buttons>
+        </ion-navbar>
+      </ion-header>
+      
+      <ion-content>
+        <div style="display: flex;justify-content: center;align-items: center;height: 100%;">
+          <ion-grid>
+            <ion-row>
+              <ion-col col-6>
+                <ion-card>
+                  <ion-card-content class="cardContent" (click)="goToPersonalInfoPage()">
+                    PERSONAL INFORMATION
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+      
+              <ion-col col-6>
+                <ion-card>
+                  <ion-card-content class="cardContent">
+                    EDUCATIONAL INFORMATION
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+      
+            <ion-row>
+              <ion-col col-6>
+                <ion-card>
+                  <ion-card-content class="cardContent">
+                    FINANCIAL INFORMATION
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+      
+              <ion-col col-6>
+                <ion-card>
+                  <ion-card-content class="cardContent">
+                    UPLOAD AGREEMENT
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </div>
+      </ion-content>

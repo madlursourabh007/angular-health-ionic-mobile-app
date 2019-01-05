@@ -41,7 +41,6 @@ export class LoginPage {
       buttons : [{
         text : 'NEXT',
         handler : data =>{
-
         }
       },
       {
@@ -52,5 +51,9 @@ export class LoginPage {
       }]
     });
     codeAlert.present();
+  }
+
+  gotoMSSPHomePage() : void {
+    this.navCtrl.setRoot('MsspPage')
   }
 }

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
-import { DummyPage } from './dummy';
+import { MsspPage } from './mssp';
 
 @NgModule({
   declarations: [
-    DummyPage,
+    MsspPage,
   ],
   imports: [
-    IonicPageModule.forChild(DummyPage),
+    IonicPageModule.forChild(MsspPage),
   ],
 })
-export class DummyPageModule {}
+export class MsspPageModule {}

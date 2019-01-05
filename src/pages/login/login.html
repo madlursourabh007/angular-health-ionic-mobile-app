@@ -20,7 +20,7 @@
         <div class="divErrorMessage" *ngIf="loginForm.controls.userPassword.invalid && (loginForm.controls.userPassword.dirty || loginForm.controls.userPassword.touched)">password required</div><br />
 
         <div style="display: flex;justify-content: center;">
-          <button ion-button class="buttonColor" [disabled]="!loginForm.valid">SIGN IN</button>
+          <button ion-button class="buttonColor" (click)="gotoMSSPHomePage()" [disabled]="!loginForm.valid">SIGN IN</button>
           <button class="buttonColor" ion-button (click)="askInvitationCode()">SIGN UP</button>
         </div>
 
