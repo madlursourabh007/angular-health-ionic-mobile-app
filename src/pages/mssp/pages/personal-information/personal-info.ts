@@ -9,7 +9,7 @@ import { NavController } from 'ionic-angular';
 @Component({
     selector : 'personal-info',
     templateUrl : './personal-info.html',
-    styleUrls : ['./personal-info.scss']
+    styleUrls : ['/personal-info.scss']
 })
 
 export class PersonalInfo{

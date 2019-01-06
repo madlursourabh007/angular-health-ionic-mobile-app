@@ -7,7 +7,7 @@ import { AlertController } from 'ionic-angular';
 @Component({
    selector : 'education-information',
    templateUrl : './educational-information.html',
-   styleUrls : ['./educational-information.scss']
+   styleUrls : ['/educational-information.scss']
 })
 
 export class EducationalInformation{

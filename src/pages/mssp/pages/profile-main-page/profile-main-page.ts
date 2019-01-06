@@ -6,7 +6,7 @@ import { NavController } from "ionic-angular";
 @Component({
     selector : 'profile-main',
     templateUrl : './profile-main-page.html',
-    styleUrls : ['./profile-main-page.scss']
+    styleUrls : ['/profile-main-page.scss']
 })
 export class ProfileMainPage{
     constructor(public _navCntrl : NavController){}

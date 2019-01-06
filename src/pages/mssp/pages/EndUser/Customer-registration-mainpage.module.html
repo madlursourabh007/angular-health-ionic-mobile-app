@@ -1,0 +1,31 @@
+<ion-header>
+        <ion-navbar #content>
+            <ion-buttons left>
+                <button ion-button icon-only menuToggle>
+                    <ion-icon name="menu"></ion-icon>
+                </button>
+            </ion-buttons>
+            <div style="display: flex;justify-content: center;font-weight: bold;font-size:15px;">END USER REGISTRATION SELECTION PAGE</div>
+            <ion-buttons right>
+                <button ion-button icon-only>
+                    <ion-icon md="md-log-out"></ion-icon>
+                </button>
+            </ion-buttons>
+        </ion-navbar>
+    </ion-header>
+<ion-content>
+    <ion-list>
+        <ion-item no-lines>
+            <ion-searchbar
+            [(ngModel)]="myInput"
+            (input)="onInput($event)"
+            (cancel)="onCancel($event)">
+          </ion-searchbar>
+          </ion-item>
+          <ion-item>
+              <div style="text-align: center;">
+          <button ion-button class="buttonColor" (click)="GotoEndUserRegistration()">OnBoard Customer</button>
+          </div>
+        </ion-item>
+    </ion-list>
+</ion-content>

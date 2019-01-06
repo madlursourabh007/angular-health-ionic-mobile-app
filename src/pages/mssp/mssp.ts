@@ -49,5 +49,9 @@ export class MsspPage {
 goToEducationalPage() : void {
     this.navCtrl.push('EducationalInformation');
 }
+gotoenduaerregistration()
+{
+  this.navCtrl.push('CustomerRegistrationComponent');
+}
 
 }
