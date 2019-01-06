@@ -11,9 +11,9 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <div style="display: flex;justify-content: center;font-size: 15px;font-weight: bold">MSSP HOME PAGE</div>
+    <div style="display: flex;justify-content: center;font-size: 13px;font-weight: bold">MSSP HOME PAGE</div>
     <ion-buttons right>
-      <button icon-button icon-only>
+      <button icon-button (click)="logOut()">
         <ion-icon md="md-log-out"></ion-icon>
       </button>
     </ion-buttons>
@@ -27,8 +27,8 @@
         <ion-icon item-right md="md-arrow-dropdown" *ngIf="!showProfile" (click)="showProfileList()"></ion-icon>
         <ion-icon item-right md="md-arrow-dropup" *ngIf="showProfile" (click)="hideProfileList()"></ion-icon>Profile</button>
       <ion-list *ngIf="showProfile">
-        <button ion-item>Personal Information</button>
-        <button ion-item>Educational Information</button>
+        <button ion-item (click)="goToPersonalInfoPage()">Personal Information</button>
+        <button ion-item (click)="goToEducationalPage()">Educational Information</button>
         <button ion-item>Financial Information</button>
         <button ion-item>Upload Agreement</button>
       </ion-list>
@@ -42,7 +42,7 @@
       <ion-row>
         <ion-col col-4>
           <ion-card>
-            <ion-card-content class="displayProperty" (click)="goToProfileMainPage()">
+            <ion-card-content class="displayProperty">
               REGISTER
             </ion-card-content>
           </ion-card>

@@ -5,9 +5,9 @@
                 <ion-icon name="menu"></ion-icon>
             </button>
         </ion-buttons>
-        <div style="display: flex;justify-content: center;font-weight: bold;font-size:15px;">MSSP PERSONAL INFORMATION</div>
+        <div style="display: flex;justify-content: center;font-weight: bold;font-size:13px;">MSSP PERSONAL INFORMATION</div>
         <ion-buttons right>
-            <button ion-button icon-only>
+            <button ion-button icon-only (click)="logOut()">
                 <ion-icon md="md-log-out"></ion-icon>
             </button>
         </ion-buttons>
@@ -20,62 +20,59 @@
                 <ion-label floating>FIRST NAME</ion-label>
                 <ion-input type="text" formControlName="firstname"></ion-input>
             </ion-item>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.firstname.invalid && (personalFormGroup.controls.firstname.dirty || personalFormGroup.controls.firstname.touched)">firstname required</div>
             <ion-item >
                 <ion-label floating>MIDDLE NAME</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" formControlName="middlename"></ion-input>
             </ion-item>
-
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.middlename.invalid && (personalFormGroup.controls.middlename.dirty || personalFormGroup.controls.middlename.touched)">middlename required</div>
             <ion-item>
                 <ion-label floating>LAST NAME</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" formControlName="lastname"></ion-input>
             </ion-item>
-
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.lastname.invalid && (personalFormGroup.controls.lastname.dirty || personalFormGroup.controls.lastname.touched)">lastname required</div>
             <ion-item>
                 <ion-label floating>DOB</ion-label>
-                <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY"></ion-datetime>
+                <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="dob"></ion-datetime>
             </ion-item>
-
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.dob.invalid && (personalFormGroup.controls.dob.dirty || personalFormGroup.controls.dob.touched)">dob required</div>
             <ion-item>
                 <ion-label floating>PAN</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" formControlName="pan"></ion-input>
             </ion-item>
-
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.pan.invalid && (personalFormGroup.controls.pan.dirty || personalFormGroup.controls.pan.touched)">pan required</div>
             <ion-item>
                 <ion-label floating>AADHAAR</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" formControlName="aadhaar"></ion-input>
             </ion-item>
-
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.aadhaar.invalid && (personalFormGroup.controls.aadhaar.dirty || personalFormGroup.controls.aadhaar.touched)">aadhaar required</div>
             <ion-item>
                 <ion-label floating>BANK ACCOUNT NUMBER</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" formControlName="bank_account_no"></ion-input>
             </ion-item>
-
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.bank_account_no.invalid && (personalFormGroup.controls.bank_account_no.dirty || personalFormGroup.controls.bank_account_no.touched)">bank account number required</div>
             <ion-item>
                 <ion-label floating>IFSC</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" formControlName="ifsc"></ion-input>
             </ion-item>
-
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.ifsc.invalid && (personalFormGroup.controls.ifsc.dirty || personalFormGroup.controls.ifsc.touched)">ifsc required</div>
             <ion-item>
                 <ion-label floating>BANK</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" formControlName="bank_name"></ion-input>
             </ion-item>
-
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.bank_name.invalid && (personalFormGroup.controls.bank_name.dirty || personalFormGroup.controls.bank_name.touched)">bankname required</div>
             <ion-item>
                 <ion-label floating>BRANCH</ion-label>
-                <ion-input type="text"></ion-input>
+                <ion-input type="text" formControlName="branch"></ion-input>
             </ion-item>
-
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.branch.invalid && (personalFormGroup.controls.branch.dirty || personalFormGroup.controls.branch.touched)">branch required</div>
             <ion-item>
-                <ion-label floating>Email</ion-label>
-                <ion-input type="email" formControlName="email"></ion-input>
+                <button ion-button class="buttonColor" (click)="uploadCancelledCopy()">Upload cancelled copy</button>
             </ion-item>
-            <div *ngIf="personalFormGroup.controls.email.inavlid">
-                Correct one plz
-            </div>
         </ion-list>
         <div style="display: flex;justify-content: center;">
-            <button ion-button class="buttonColor">SAVE</button>
-            <button ion-button class="buttonColor">SUBMIT</button>
+            <button ion-button class="buttonColor" [disabled]="!personalFormGroup.valid">SAVE</button>
+            <button ion-button class="buttonColor" [disabled]="!personalFormGroup.valid">SUBMIT</button>
         </div>
     </form>
 </ion-content>

@@ -38,4 +38,16 @@ export class MsspPage {
     this.navCtrl.push('ProfileMainPage');
   }
 
+  logOut() : void {
+    this.navCtrl.setRoot("LoginPage");
+  }
+
+  goToPersonalInfoPage() : void {
+    this.navCtrl.push('PersonalInfo');
+}
+
+goToEducationalPage() : void {
+    this.navCtrl.push('EducationalInformation');
+}
+
 }
