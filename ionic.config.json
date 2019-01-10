@@ -3,5 +3,25 @@
   "integrations": {
     "cordova": {}
   },
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [{
+    "path": "/save_personal_info",
+    "proxyUrl": "http://13.233.190.134:3000/api/personalInfo/add"
+  },
+  {
+    "path": "/get_personal_info",
+    "proxyUrl": "http://13.233.190.134:3000/api/personalInfo/5c325bb3d086df5109615751"
+  },
+  {
+    "path" : "/generate_invitation_code",
+    "proxyUrl" : "http://13.233.190.134:3000/api/users/generateInvitationCode"
+  },
+  {
+    "path" :  "/fetch_personal_info",
+    "proxyUrl" : "http://13.233.190.134:3000/api/personalInfo"
+  },
+  {
+    "path" : "/validate_invitation_code",
+    "proxyUrl" : "http://13.233.190.134:3000/api/users/validateInvitationCode"
+  }]
 }

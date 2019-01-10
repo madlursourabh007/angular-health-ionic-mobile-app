@@ -9,15 +9,11 @@ import { NavController } from "ionic-angular";
     styleUrls : ['/profile-main-page.scss']
 })
 export class ProfileMainPage{
+    personalpage = 'PersonalInfo';
+    educationalpage = 'EducationalInformation';
+    financialpage = 'FinancialInformation';
+    agreementpage = 'Agreement';
     constructor(public _navCntrl : NavController){}
-
-    goToPersonalInfoPage() : void {
-        this._navCntrl.push('PersonalInfo');
-    }
-
-    goToEducationalPage() : void {
-        this._navCntrl.push('EducationalInformation');
-    }
 
     logOut() : void {
         this._navCntrl.setRoot("LoginPage");

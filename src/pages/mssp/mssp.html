@@ -23,15 +23,14 @@
 <ion-menu [content]="content">
   <ion-content padding>
     <ion-list>
-      <button ion-item>
-        <ion-icon item-right md="md-arrow-dropdown" *ngIf="!showProfile" (click)="showProfileList()"></ion-icon>
-        <ion-icon item-right md="md-arrow-dropup" *ngIf="showProfile" (click)="hideProfileList()"></ion-icon>Profile</button>
-      <ion-list *ngIf="showProfile">
-        <button ion-item (click)="goToPersonalInfoPage()">Personal Information</button>
-        <button ion-item (click)="goToEducationalPage()">Educational Information</button>
-        <button ion-item>Financial Information</button>
-        <button ion-item>Upload Agreement</button>
-      </ion-list>
+      <ion-item no-lines>
+        <div style="text-align: center">
+         <img src="https://bit.ly/2sjg0Sw" height="40px;width:40px;">
+        </div>
+      </ion-item>
+      <div style="display: flex;justify-content: center;">
+        <button ion-item no-lines (click)="goToProfileMainPage()" menuClose>MSSP Name&nbsp;&nbsp;&nbsp;<ion-icon md="md-create"></ion-icon></button>
+      </div>
     </ion-list>
   </ion-content>
 </ion-menu>

@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
     <ion-navbar #content>
         <ion-buttons left>
             <button ion-button icon-only menuToggle>
@@ -12,22 +12,22 @@
             </button>
         </ion-buttons>
     </ion-navbar>
-</ion-header>
+</ion-header> -->
 <ion-content>
     <form [formGroup]="personalFormGroup">
         <ion-list>
             <ion-item>
-                <ion-label floating>FIRST NAME</ion-label>
+                <ion-label floating>First Name</ion-label>
                 <ion-input type="text" formControlName="firstname"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.firstname.invalid && (personalFormGroup.controls.firstname.dirty || personalFormGroup.controls.firstname.touched)">firstname required</div>
             <ion-item >
-                <ion-label floating>MIDDLE NAME</ion-label>
+                <ion-label floating>Middle Name</ion-label>
                 <ion-input type="text" formControlName="middlename"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.middlename.invalid && (personalFormGroup.controls.middlename.dirty || personalFormGroup.controls.middlename.touched)">middlename required</div>
             <ion-item>
-                <ion-label floating>LAST NAME</ion-label>
+                <ion-label floating>Last Name</ion-label>
                 <ion-input type="text" formControlName="lastname"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.lastname.invalid && (personalFormGroup.controls.lastname.dirty || personalFormGroup.controls.lastname.touched)">lastname required</div>
@@ -37,42 +37,56 @@
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.dob.invalid && (personalFormGroup.controls.dob.dirty || personalFormGroup.controls.dob.touched)">dob required</div>
             <ion-item>
-                <ion-label floating>PAN</ion-label>
+                <ion-label floating>Pan Number</ion-label>
                 <ion-input type="text" formControlName="pan"></ion-input>
+                <button ion-button clear item-right (click)="uploadDocument()"> <ion-icon style="margin-top : 2.8%;"  md="md-cloud-upload"> </ion-icon> </button>
             </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.pan.invalid && (personalFormGroup.controls.pan.dirty || personalFormGroup.controls.pan.touched)">pan required</div>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.pan.invalid && (personalFormGroup.controls.pan.dirty || personalFormGroup.controls.pan.touched || personalFormGroup.controls.pan.errors?.minLength)">pan required and must contains 10 digits</div>
             <ion-item>
-                <ion-label floating>AADHAAR</ion-label>
-                <ion-input type="text" formControlName="aadhaar"></ion-input>
+                <ion-label floating>Aadhaar Number</ion-label>
+                <ion-input type="number" formControlName="aadhaar"></ion-input>
+                <button style="margin-top : 2.8%;" ion-button clear item-right (click)="uploadDocument()"> <ion-icon md="md-cloud-upload"> </ion-icon> </button>
+                
+                <!-- <div class="uploadDiv">
+                    <div>Adhaar Number</div>
+                    <ion-input type="text" formControlName="aadhaar" placeholder="aadhaar"></ion-input>
+                    <span style="margin-right:3%;width:50%;height:50%;"><ion-icon md="md-cloud-upload" (click)="uploadDocument()"></ion-icon></span>
+                </div> -->
             </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.aadhaar.invalid && (personalFormGroup.controls.aadhaar.dirty || personalFormGroup.controls.aadhaar.touched)">aadhaar required</div>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.aadhaar.invalid && (personalFormGroup.controls.aadhaar.dirty || personalFormGroup.controls.aadhaar.touched || personalFormGroup.controls.aadhaar.errors?.minLength)">aadhaar required and must contains 12 digits</div>
             <ion-item>
-                <ion-label floating>BANK ACCOUNT NUMBER</ion-label>
+                <ion-label floating>Bank Account Number</ion-label>
                 <ion-input type="text" formControlName="bank_account_no"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.bank_account_no.invalid && (personalFormGroup.controls.bank_account_no.dirty || personalFormGroup.controls.bank_account_no.touched)">bank account number required</div>
             <ion-item>
-                <ion-label floating>IFSC</ion-label>
+                <ion-label floating>IFSC Code</ion-label>
                 <ion-input type="text" formControlName="ifsc"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.ifsc.invalid && (personalFormGroup.controls.ifsc.dirty || personalFormGroup.controls.ifsc.touched)">ifsc required</div>
             <ion-item>
-                <ion-label floating>BANK</ion-label>
+                <ion-label floating>Bank Name</ion-label>
                 <ion-input type="text" formControlName="bank_name"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.bank_name.invalid && (personalFormGroup.controls.bank_name.dirty || personalFormGroup.controls.bank_name.touched)">bankname required</div>
             <ion-item>
-                <ion-label floating>BRANCH</ion-label>
+                <ion-label floating>Branch</ion-label>
                 <ion-input type="text" formControlName="branch"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.branch.invalid && (personalFormGroup.controls.branch.dirty || personalFormGroup.controls.branch.touched)">branch required</div>
             <ion-item>
-                <button ion-button class="buttonColor" (click)="uploadCancelledCopy()">Upload cancelled copy</button>
+                <div class="uploadDiv">
+                    <div>Cancelation Copy</div>
+                    <span style="margin-right:3%;width:50%;height:50%;"><ion-icon md="md-cloud-upload" (click)="uploadDocument()"></ion-icon></span>
+                </div>
             </ion-item>
+            <!-- <ion-item>
+                <button ion-button class="buttonColor" (click)="uploadCancelledCopy()">Upload cancelled copy</button>
+            </ion-item> -->
         </ion-list>
         <div style="display: flex;justify-content: center;">
-            <button ion-button class="buttonColor" [disabled]="!personalFormGroup.valid">SAVE</button>
-            <button ion-button class="buttonColor" [disabled]="!personalFormGroup.valid">SUBMIT</button>
+            <button ion-button class="buttonColor" [disabled]="!personalFormGroup.valid" (click)="saveMsspPersonalInfo()">SAVE</button>
+            <!-- <button ion-button class="buttonColor" [disabled]="!personalFormGroup.valid">SUBMIT</button> -->
         </div>
     </form>
 </ion-content>

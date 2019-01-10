@@ -18,25 +18,6 @@
         <form [formGroup]="EndUserRegistrationFormGroup">
                <div>
                         <ion-list>
-                            <ion-item>
-                        <ion-label floating>Primary Number</ion-label>
-                        <ion-input type="text" formControlName="Primaryno"></ion-input>
-                    </ion-item>
-                    <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.Primaryno.invalid && (EndUserRegistrationFormGroup.controls.Primaryno.dirty || EndUserRegistrationFormGroup.controls.Primaryno.touched)">Primary Number required</div>
-                    <ion-item>
-                            <button ion-button class="buttonColor">Generate OTP</button>
-                        </ion-item>
-
-                        <ion-item>
-                                <ion-label floating>Whats App Number</ion-label>
-                                <ion-input type="text" formControlName="Whatsappno"></ion-input>
-                            </ion-item>
-                            <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.Whatsappno.invalid && (EndUserRegistrationFormGroup.controls.Whatsappno.dirty || EndUserRegistrationFormGroup.controls.Whatsappno.touched)">WhatsApp Number required</div>
-                            <ion-item>
-                                    <ion-label floating>OTP</ion-label>
-                                    <ion-input type="text" formControlName="OTP"></ion-input>
-                                </ion-item>
-                                <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.OTP.invalid && (EndUserRegistrationFormGroup.controls.OTP.dirty || EndUserRegistrationFormGroup.controls.OTP.touched)">OTP required</div>
                                 <ion-item>
                                         <ion-label floating>First Name</ion-label>
                                         <ion-input type="text" formControlName="Fname"></ion-input>
@@ -72,34 +53,33 @@
                                             </ion-col>
                                             </ion-row>
                                         </ion-grid>
-
                                         <ion-item>
-                                                <ion-label floating>Pin</ion-label>
+                                            <ion-label floating>Whats App Number</ion-label>
+                                            <ion-input type="text" formControlName="Whatsappno"></ion-input>
+                                        </ion-item>
+                                        <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.Whatsappno.invalid && (EndUserRegistrationFormGroup.controls.Whatsappno.dirty || EndUserRegistrationFormGroup.controls.Whatsappno.touched)">Whats App Number is required</div>
+                                        <ion-item>
+                                                <ion-label floating>Enter your Pin</ion-label>
                                                 <ion-input type="text" formControlName="pin"></ion-input>
                                             </ion-item>
                                             <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.pin.invalid && (EndUserRegistrationFormGroup.controls.pin.dirty || EndUserRegistrationFormGroup.controls.pin.touched)">Pin code is required</div>
                                             <ion-item>
-                                                    <ion-label floating>Address1</ion-label>
+                                                    <ion-label floating>First Line of Address</ion-label>
                                                     <ion-textarea  formControlName="Address1"></ion-textarea>
                                                 </ion-item>
                                                 <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.Address1.invalid && (EndUserRegistrationFormGroup.controls.Address1.dirty || EndUserRegistrationFormGroup.controls.Address1.touched)"> Address1 is required</div>
                                                 <ion-item>
-                                                        <ion-label floating>Address2</ion-label>
+                                                        <ion-label floating>Second Line of Address</ion-label>
                                                         <ion-input type="text" formControlName="Address2"></ion-input>
                                                     </ion-item>
                                                     <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.Address2.invalid && (EndUserRegistrationFormGroup.controls.Address2.dirty || EndUserRegistrationFormGroup.controls.Address2.touched)">Address2 is required</div>
-                                                    <ion-item>
-                                                            <ion-label floating>Address3</ion-label>
-                                                            <ion-input type="text" formControlName="Address3"></ion-input>
-                                                        </ion-item>
-                                                        <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.Address3.invalid && (EndUserRegistrationFormGroup.controls.Address3.dirty || EndUserRegistrationFormGroup.controls.Address3.touched)">Address3 is required</div>
                                                         <ion-item>
-                                                                <ion-label floating>Taluk</ion-label>
+                                                                <ion-label floating>Enter your Taluka</ion-label>
                                                                 <ion-input type="text" formControlName="taluk"></ion-input>
                                                             </ion-item>
                                                             <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.taluk.invalid && (EndUserRegistrationFormGroup.controls.taluk.dirty || EndUserRegistrationFormGroup.controls.taluk.touched)">Taluk is required</div>
                                                             <ion-item>
-                                                                    <ion-label floating>District</ion-label>
+                                                                    <ion-label floating>Enter your District</ion-label>
                                                                     <ion-input type="text" formControlName="district"></ion-input>
                                                                 </ion-item>
                                                                 <div class="divErrorMessage" *ngIf="EndUserRegistrationFormGroup.controls.district.invalid && (EndUserRegistrationFormGroup.controls.district.dirty || EndUserRegistrationFormGroup.controls.district.touched)">District is required</div>

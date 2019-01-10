@@ -26,14 +26,6 @@ export class MsspPage {
     console.log('ionViewDidLoad MsspPage');
   }
 
-  showProfileList() : void {
-    this.showProfile = true;
-  }
-
-  hideProfileList() : void {
-    this.showProfile = false;
-  }
-
   goToProfileMainPage() : void {
     this.navCtrl.push('ProfileMainPage');
   }
@@ -42,16 +34,9 @@ export class MsspPage {
     this.navCtrl.setRoot("LoginPage");
   }
 
-  goToPersonalInfoPage() : void {
-    this.navCtrl.push('PersonalInfo');
-}
-
-goToEducationalPage() : void {
-    this.navCtrl.push('EducationalInformation');
-}
-gotoenduaerregistration()
-{
-  this.navCtrl.push('CustomerRegistrationComponent');
-}
+  gotoenduaerregistration()
+  {
+    this.navCtrl.push('GenerateOTPComponent');
+  }
 
 }

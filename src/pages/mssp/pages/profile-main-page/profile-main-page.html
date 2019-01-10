@@ -1,57 +1,32 @@
 <ion-header>
-        <ion-navbar #content>
-          <ion-buttons left>
-            <button ion-button icon-only menuToggle>
-              <ion-icon name="menu"></ion-icon>
-            </button>
-          </ion-buttons>
-          <div style="display: flex;justify-content: center;font-size: 13px;font-weight: bold">MSSP PROFILE MAIN PAGE</div>
-          <ion-buttons right>
-            <button icon-button icon-only>
-              <ion-icon md="md-log-out" (click)="logOut()"></ion-icon>
-            </button>
-          </ion-buttons>
-        </ion-navbar>
-      </ion-header>
+  <ion-navbar #content>
+    <ion-buttons left>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+          
+    </ion-buttons>
+      <div style="display: flex;justify-content: center;font-size: 13px;font-weight: bold">MSSP PROFILE PAGE</div>
+        <ion-buttons right>
+          <button icon-button icon-only>
+            <ion-icon md="md-log-out" (click)="logOut()"></ion-icon>
+          </button>
+        </ion-buttons>
+  </ion-navbar>
+</ion-header>
       
-      <ion-content>
-        <div style="display: flex;justify-content: center;align-items: center;height: 100%;">
-          <ion-grid>
-            <ion-row>
-              <ion-col col-6>
-                <ion-card>
-                  <ion-card-content class="cardContent" (click)="goToPersonalInfoPage()">
-                    PERSONAL INFORMATION
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-      
-              <ion-col col-6>
-                <ion-card>
-                  <ion-card-content class="cardContent" (click)="goToEducationalPage()">
-                    EDUCATIONAL INFORMATION
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-            </ion-row>
-      
-            <ion-row>
-              <ion-col col-6>
-                <ion-card>
-                  <ion-card-content class="cardContent">
-                    FINANCIAL INFORMATION
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-      
-              <ion-col col-6>
-                <ion-card>
-                  <ion-card-content class="cardContent">
-                    UPLOAD AGREEMENT
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </div>
-      </ion-content>
+<ion-content>
+  <ion-tabs tabsPlacement="top" style="margin-top: 3%;">
+    <ion-tab class="tabTitleSizeAndFont" name="personal" [root]="personalpage" tabTitle="Personal">
+    </ion-tab>
+          
+    <ion-tab class="tabTitleSizeAndFont" name="educational" [root]="educationalpage" tabTitle="Educational">
+    </ion-tab>
+
+    <ion-tab class="tabTitleSizeAndFont" name="financial" [root]="financialpage" tabTitle="Fianancial">
+    </ion-tab>
+
+    <ion-tab class="tabTitleSizeAndFont" name="agreement" [root]="agreementpage" tabTitle="Agreement">
+    </ion-tab>
+  </ion-tabs>
+</ion-content>

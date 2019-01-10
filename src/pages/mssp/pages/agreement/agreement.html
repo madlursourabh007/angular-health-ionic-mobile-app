@@ -1,0 +1,18 @@
+<ion-content>
+    <form>
+        <ion-list>
+            <ion-item no-lines>
+                <div class="uploadDiv">
+                    <div>Upload Agreement</div>
+                    <span style="margin-right:3%;width:50%;height:50%;"><ion-icon md="md-cloud-upload" (click)="uploadDocument()"></ion-icon></span>
+                </div>
+            </ion-item>
+            <div class="divErrorMessage" *ngIf="!isDocumantUploaded">Please upload certficate</div>
+            
+            <div style="display: flex;justify-content: center;margin-top:3%;">
+                <button ion-button class="buttonColor">SAVE</button>
+                <button ion-button class="buttonColor">SUBMIT</button>
+            </div>
+        </ion-list>
+    </form>
+</ion-content>

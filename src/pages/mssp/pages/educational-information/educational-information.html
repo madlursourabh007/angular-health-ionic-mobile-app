@@ -1,4 +1,4 @@
-<ion-header>
+<!-- <ion-header>
     <ion-navbar #content>
       <ion-buttons left>
         <button ion-button icon-only menuToggle>
@@ -12,28 +12,36 @@
         </button>
       </ion-buttons>
     </ion-navbar>
-</ion-header>
+</ion-header> -->
 
 <ion-content>
-    <ion-item no-lines>
-        <ion-label floating>Highest Qualification</ion-label>
-        <ion-select>
-            <ion-option value="sslc">SSLC</ion-option>
-            <ion-option value="puc">PUC</ion-option>
-            <ion-option value="ba">B.A</ion-option>
-            <ion-option value="bsc">B.Sc</ion-option>
-            <ion-option value="bcom">B.Com</ion-option>
-        </ion-select>
-    </ion-item>
+    <form [formGroup]="educationalFormGroup">
+        <ion-item no-lines>
+            <ion-label floating>Highest Qualification</ion-label>
+            <ion-select formControlName="qualification">
+                <ion-option value="sslc">SSLC</ion-option>
+                <ion-option value="puc">PUC</ion-option>
+                <ion-option value="ba">B.A</ion-option>
+                <ion-option value="bsc">B.Sc</ion-option>
+                <ion-option value="bcom">B.Com</ion-option>
+            </ion-select>
+        </ion-item>
+        <div class="divErrorMessage" *ngIf="educationalFormGroup.controls.qualification.invalid && (educationalFormGroup.controls.qualification.touched || educationalFormGroup.controls.qualification.dirty)">Please select your highest qualification</div>
+        <ion-item no-lines>
+            <div class="uploadDiv">
+                <div>Upload Certificate</div>
+                <span style="margin-right:3%;width:50%;height:50%;"><ion-icon md="md-cloud-upload" (click)="uploadDocument()"></ion-icon></span>
+            </div>
+        </ion-item>
+        <div class="divErrorMessage" *ngIf="!isDocumantUploaded">Please upload certficate</div>
 
-    <ion-item no-lines>
-        <div class="uploadDiv">
-            <div>Graduate</div>
-            <button ion-button class="buttonColor" (click)="uploadDocument()">Upload</button>
+        <div style="display: flex;justify-content: center;">
+            <button ion-button class="buttonColor" [disabled]="!educationalFormGroup.valid">SAVE</button>
+                <!-- <button ion-button class="buttonColor" [disabled]="!personalFormGroup.valid">SUBMIT</button> -->
         </div>
-    </ion-item>
+    </form>
 
-    <ion-item no-lines>
+    <!-- <ion-item no-lines>
         <div class="uploadDiv">
             <div>PUC</div>
             <button ion-button class="buttonColor" (click)="uploadDocument()">Upload</button>
@@ -52,5 +60,5 @@
             <div>Any Qualification</div>
             <button ion-button class="buttonColor" (click)="uploadDocument()">Upload</button>
         </div>
-    </ion-item>
+    </ion-item> -->
 </ion-content>

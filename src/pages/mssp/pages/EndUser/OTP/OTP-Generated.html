@@ -1,0 +1,27 @@
+<ion-header>
+    <ion-navbar #content>
+        <ion-buttons left>
+            <button ion-button icon-only menuToggle>
+                <ion-icon name="menu"></ion-icon>
+            </button>
+        </ion-buttons>
+        <div style="display: flex;justify-content: center;font-weight: bold;font-size:15px;">OTP</div>
+        <ion-buttons right>
+            <button ion-button icon-only>
+                <ion-icon md="md-log-out"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+        <form [formGroup]="GeneratedOTP">
+    <ion-list>
+        <ion-item>
+    <ion-label floating>Enter Your OTP</ion-label>
+    <ion-input formControlName="OTP" type="text" (change)='onChangeTime($event.target.value)'></ion-input>
+</ion-item>
+<div class="divErrorMessage" *ngIf="GeneratedOTP.controls.OTP.invalid && (GeneratedOTP.controls.OTP.dirty || GeneratedOTP.controls.OTP.touched)">First Name is required</div>
+    </ion-list>
+    </form>
+</ion-content>

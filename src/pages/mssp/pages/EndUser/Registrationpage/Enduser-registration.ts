@@ -23,7 +23,6 @@ export class EndUserRegistrationComponent
                 pin:['',Validators.required],
                 Address1:['',Validators.required],
                 Address2:['',Validators.required],
-                Address3:['',Validators.required],
                 taluk:['',Validators.required],
                 district:['',Validators.required]
 
