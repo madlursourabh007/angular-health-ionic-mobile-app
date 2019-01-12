@@ -41,9 +41,9 @@ export class PersonalInfo{
             lastname : ['', Validators.required],
             middlename : ['',Validators.required],
             bank_account_no : ['',Validators.required],
-            ifsc : ['',Validators.required],
-            bank_name : ['',Validators.required],
-            branch : ['',Validators.required],
+            ifsc : ['',Validators.compose([Validators.required,Validators.minLength(8)])],
+            bank_name : ['',Validators.compose([Validators.required,Validators.minLength(4)])],
+            branch : ['',Validators.compose([Validators.required,Validators.minLength(5)])],
             dob : ['',Validators.required],
             pan : ['',Validators.compose([Validators.required,Validators.maxLength(10),Validators.minLength(10)])],
             aadhaar : ['',Validators.compose([Validators.required,Validators.maxLength(12),Validators.minLength(12)])]
@@ -95,6 +95,7 @@ export class PersonalInfo{
         
         this._service.saveMsspPersonalInfo().subscribe((data)=>{
            this.loadingControllerUIService.dismissLoading();
+           console.log('Personal Info Save result :: '+data._id);
             alert("Your personal information saved sucessfully.");
         },(err)=>{
             this.loadingControllerUIService.dismissLoading();

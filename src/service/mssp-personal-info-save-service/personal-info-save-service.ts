@@ -30,6 +30,7 @@ export class MSSPPersonalInfoSaveService extends URLConfig{
            "canChecque":this._mssPersonalInfoModal.getcanChecque(),
             "id":this._mssPersonalInfoModal.getUserID()
         }
+        console.log("personal data is ::: "+boody);
         return this._http.post(this.getMSSPPersonalInfoSaveServiceURL(),boody).pipe(
             map(res=>res),
             catchError(this._handleError.handleError)

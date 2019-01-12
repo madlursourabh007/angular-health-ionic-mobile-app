@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
     selector: 'Customer-registration-mainpage',
     templateUrl: './Customer-registration-mainpage.module.html',
-    styleUrls : ['/Customer-registration-mainpage.scss']
+    styleUrls : ['./Customer-registration-mainpage.scss']
   })
 export class CustomerRegistrationComponent
 {

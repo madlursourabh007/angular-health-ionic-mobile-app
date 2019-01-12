@@ -19,7 +19,7 @@
     <ion-list>
         <ion-item>
     <ion-label floating>Enter Your OTP</ion-label>
-    <ion-input formControlName="OTP" type="text" (change)='onChangeTime($event.target.value)'></ion-input>
+    <ion-input formControlName="OTP" type="text" (keyup)='onChangeTime($event.target.value)'></ion-input>
 </ion-item>
 <div class="divErrorMessage" *ngIf="GeneratedOTP.controls.OTP.invalid && (GeneratedOTP.controls.OTP.dirty || GeneratedOTP.controls.OTP.touched)">First Name is required</div>
     </ion-list>

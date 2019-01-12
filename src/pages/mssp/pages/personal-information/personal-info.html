@@ -63,17 +63,17 @@
                 <ion-label floating>IFSC Code</ion-label>
                 <ion-input type="text" formControlName="ifsc"></ion-input>
             </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.ifsc.invalid && (personalFormGroup.controls.ifsc.dirty || personalFormGroup.controls.ifsc.touched)">ifsc required</div>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.ifsc.invalid && (personalFormGroup.controls.ifsc.dirty || personalFormGroup.controls.ifsc.touched || personalFormGroup.controls.ifsc.errors?.minLength)">ifsc required and must contains atleast 8 charcters</div>
             <ion-item>
                 <ion-label floating>Bank Name</ion-label>
                 <ion-input type="text" formControlName="bank_name"></ion-input>
             </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.bank_name.invalid && (personalFormGroup.controls.bank_name.dirty || personalFormGroup.controls.bank_name.touched)">bankname required</div>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.bank_name.invalid && (personalFormGroup.controls.bank_name.dirty || personalFormGroup.controls.bank_name.touched || personalFormGroup.controls.bank_name.errors?.minLength)">bankname required and must contains atleast 4 charcters</div>
             <ion-item>
                 <ion-label floating>Branch</ion-label>
                 <ion-input type="text" formControlName="branch"></ion-input>
             </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.branch.invalid && (personalFormGroup.controls.branch.dirty || personalFormGroup.controls.branch.touched)">branch required</div>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.branch.invalid && (personalFormGroup.controls.branch.dirty || personalFormGroup.controls.branch.touched || personalFormGroup.controls.branch.errors?.minLength)">branch required and must contains atleast 5 characters</div>
             <ion-item>
                 <div class="uploadDiv">
                     <div>Cancelation Copy</div>

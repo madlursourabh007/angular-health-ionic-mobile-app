@@ -6,7 +6,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
     selector: 'Enduser-registration',
     templateUrl: 'Enduser-registration.html',
-    styleUrls : ['/Enduser-registration.scss']
+    styleUrls : ['./Enduser-registration.scss']
   })
 export class EndUserRegistrationComponent
 {

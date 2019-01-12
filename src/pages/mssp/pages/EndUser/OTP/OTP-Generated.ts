@@ -5,7 +5,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
     selector: 'OTPGenerate',
     templateUrl: './OTP-Generated.html',
-    styleUrls : ['/OTP-Generated.scss']
+    styleUrls : ['./OTP-Generated.scss']
   })
 export class OTPGeneratedComponet
 {
@@ -16,8 +16,9 @@ export class OTPGeneratedComponet
             OTP:['',Validators.required]
         })
     }
-    onChangeTime()
+    onChangeTime(value : any)
     {
+        if(value.length ==4 )
         this.navctrl.push('EndUserRegistrationComponent');
     }
 }

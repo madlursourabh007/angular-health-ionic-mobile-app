@@ -1,18 +1,26 @@
 export class URLConfig {
     
     public getMSSPPersonalInfoSaveServiceURL() : string {
-        return "/save_personal_info"; //"http://13.233.190.134:3000/api/personalInfo/add";//
+        return  "http://13.233.190.134:3000/api/personalInfo/add";//"/save_personal_info"; //
     }
 
     public getMSSPPersonalInfoFetchServiceURL() : string {
-        return "/fetch_personal_info"; //"http://13.233.190.134:3000/api/personalInfo";//
+        return "http://13.233.190.134:3000/api/personalInfo";//"/fetch_personal_info"; //
+    }
+
+    public getMSSPEducationalInfoSaveServiceURL() : string {
+        return  "http://13.233.190.134:3000/api/education/add";//"save_educational_info"
+    }
+
+    public getMSSPFinancialInfoSaveServiceURL() : string {
+        return  "http://13.233.190.134:3000/api/finance/add";//"save_financial_info"
     }
 
     public getGenerateInvitationCodeServiceURL() : string {
-        return "/generate_invitation_code"; //"http://13.233.190.134:3000/api/users/generateInvitationCode";//
+        return "http://13.233.190.134:3000/api/users/generateInvitationCode";//"/generate_invitation_code"; //
     }
 
     public getValidateInvitationCodeServiceURL() : string {
-        return "/validate_invitation_code"; //"http://13.233.190.134:3000/api/users/validateInvitationCode";//
+        return "http://13.233.190.134:3000/api/users/validateInvitationCode";//"/validate_invitation_code"; //
     }
 }

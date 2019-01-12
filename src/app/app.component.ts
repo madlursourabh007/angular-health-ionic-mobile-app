@@ -14,7 +14,7 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, 
     splashScreen: SplashScreen, private _appPref : AppPreferences) {
-    //this._appPref.fetch('userid').then((data)=>{console.log(data)}).catch((err)=>console.log(err));
+    this._appPref.fetch('userid').then((data)=>{console.log("Pref data:::: "+data)}).catch((err)=>console.log("No pref data :: "+err));
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

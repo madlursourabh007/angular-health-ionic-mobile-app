@@ -15,6 +15,12 @@ import { LoadingController } from 'ionic-angular';
 import { LoadingProgress } from './common/loading/loading';
 import { InvitationCodeModal } from './common/modal/inviatation-code-modal/inviataion.code.modal';
 import { AppPreferences } from '@ionic-native/app-preferences';
+import { FileChooser } from '@ionic-native/file-chooser';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { MSSPEducationalInfoSaveModal } from './common/modal/mssp/mssp-educational-info-save-modal/mssp-educational-info-save.modal';
+import { DocumentModal } from './common/modal/mssp/mssp-educational-info-save-modal/document-modal/document.modal';
+import { MSSPFinancialInfoSaveModal } from './common/modal/mssp/mssp-financial-info-save-modal/mssp-financial-info-save.modal';
 
 @NgModule({
   declarations: [
@@ -31,16 +37,22 @@ import { AppPreferences } from '@ionic-native/app-preferences';
     MyApp
   ],
   providers: [
+    FileChooser,
     StatusBar,
     SplashScreen,
+    FileTransfer,
+    File,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     ReactiveFormsModule,
     MsspPersonalInfoSaveModal,
+    MSSPEducationalInfoSaveModal,
+    MSSPFinancialInfoSaveModal,
     LoadingController,
     LoadingProgress,
     HandleError,
     HttpClientModule,
     InvitationCodeModal,
+    DocumentModal,
     AppPreferences,
     { provide : HTTP_INTERCEPTORS, useClass : ContentTypeInterceptors, multi : true}
   ]

@@ -84,5 +84,7 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-filechooser" spec="^1.2.0" />
     <plugin name="cordova-plugin-app-preferences" spec="https://github.com/vash15/me.apla.cordova.app-preferences" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
+    <plugin name="cordova-plugin-file-transfer" spec=" https://github.com/apache/cordova-plugin-file-transfer" />
     <engine name="android" spec="7.0.0" />
 </widget>

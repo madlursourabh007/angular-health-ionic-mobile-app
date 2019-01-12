@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { MSSPFinancialInfoSaveService } from '../../../../service/mssp/financial-info-save-service/financial-info-save.service';
+import { MSSPFinancialInfoSaveModal } from '../../../../app/common/modal/mssp/mssp-financial-info-save-modal/mssp-financial-info-save.modal';
 
 @IonicPage()
 @Component({
@@ -14,11 +16,15 @@ export class FinancialInformation{
     isDocumantUploaded : boolean = false;
 
     constructor(private _formBuilder : FormBuilder, 
-        private _fileChooser : FileChooser, private alertController : AlertController){
+        private _fileChooser : FileChooser, 
+        private alertController : AlertController,
+        private financialInfoSaveService : MSSPFinancialInfoSaveService,
+        private financialInfoSaveModal : MSSPFinancialInfoSaveModal){
         this.financialFormGroup = this._formBuilder.group({
-            deposit_amount : ['',Validators.required],
-            deposit_date : ['',Validators.required],
-            deposit_reciept : ['',Validators.required]
+            bg_lc_amount : ['',Validators.required],
+            bg_lc_period : ['',Validators.required],
+            fd_amount : ['',Validators.required],
+            lien_period : ['',Validators.required]
         })
     }
 
@@ -34,6 +40,15 @@ export class FinancialInformation{
                 subTitle : err,
                 buttons : ['Ok']
             })
+        })
+    }
+
+    saveFinancialInformation() : void {
+        this.financialInfoSaveService.saveFinancialInfo(this.financialInfoSaveModal)
+        .subscribe((result)=>{
+            alert("Your financial information saved successfully.");
+        },(err)=>{
+            alert("Error occurred while saving fiancial information. "+err);
         })
     }
 }

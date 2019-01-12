@@ -8,6 +8,9 @@ import { InvitationCodeModal } from '../../app/common/modal/inviatation-code-mod
 import { LoadingProgress } from '../../app/common/loading/loading';
 import { LoadingController } from 'ionic-angular';
 import { ValidateInvitationCodeService } from '../../service/mssp-validate-generated-invitation-code-service/mssp-validate-generated-invitation-code.service';
+import { AppPreferences } from '@ionic-native/app-preferences';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { FileChooser } from '@ionic-native/file-chooser';
 
 /**
  * Generated class for the LoginPage page.
@@ -26,6 +29,12 @@ export class LoginPage {
 
   public loginForm : FormGroup;
   public loading : any = null;
+  public fileTransferObject : FileTransferObject;
+
+  public params = {
+    accessKeyId: 'AKIAITNA2AL24F2OXU5Q',
+    secretAccessKey: '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',
+  }
 
   constructor(public navCtrl: NavController, public navParams: NavParams, 
     public _loginFormBuilder : FormBuilder, 
@@ -34,7 +43,11 @@ export class LoginPage {
     public genarateInvitaionCodeService : MsspGenerateInvitationCodeServie,
     public invitationCodeModal : InvitationCodeModal,
     public loadingProgress : LoadingProgress,
-    private validateInvitationCodeService : ValidateInvitationCodeService) {
+    private validateInvitationCodeService : ValidateInvitationCodeService,
+    private _appPref : AppPreferences,
+    private _fileChooser : FileChooser,
+    private _fileTransfer : FileTransfer,
+  ) {
     this.loginForm = this._loginFormBuilder.group({
       userName : ['', Validators.required],
       userPassword : ['', Validators.required]
@@ -43,11 +56,13 @@ export class LoginPage {
 
   ionViewDidEnter(){
     console.log('ionViewDidLoad LoginPage');
+    //this.uplodFile();
   }
 
   askInvitationCode() : void {
     this.genarateProgressDialog("Generating invitation code. Please wait..")
     this.genarateInvitaionCodeService.getInvitationCode().subscribe( data=>{
+      this._appPref.store('userid',data._id).then(data=>console.log(data)).catch(err=>console.error("pref error"));
       this.invitationCodeModal.setID(data._id);
       this.invitationCodeModal.setTempID(data.temID);
       this.dismissGenerateProgressDialog();
@@ -115,6 +130,32 @@ export class LoginPage {
     },(err)=>{
       this.dismissGenerateProgressDialog();
       console.error("Problem occurred during fetching existing personal info.. :: "+err);
+    })
+  }
+
+  uplodFile() : void {
+    let fileUploadOptions : FileUploadOptions = {
+      mimeType : 'application/pdf',
+      params : this.params
+    }
+    this._fileChooser.open().then(uri=>{
+      this.loadingProgress.generateLoadingProgress("Please wait uploading file..")
+      this.loadingProgress.showLoading();
+      this.fileTransferObject = this._fileTransfer.create();
+      this.fileTransferObject.upload(uri,"https://o2_medicine_documents.s3.amazonaws.com/",fileUploadOptions)
+      .then(result=>{alert(result);this.loadingProgress.dismissLoading();})
+      .catch((err)=>{alert("Error occurred"+err);console.log("Error Ocrd ::: "+err.body);
+      this.loadingProgress.dismissLoading();
+      console.error("code :: "+err.code);
+      console.error("source ::: "+err.source);
+      console.error("target ::: "+err.target);
+      console.error("http_status ::: "+err.http_status);
+      console.error("body ::: "+err.body);
+      console.error("exception ::: "+err.exception);
+    });
+    }).catch(err =>{
+      this.loadingProgress.dismissLoading();
+      alert("Error occurred while choosing file. "+err);
     })
   }
 }

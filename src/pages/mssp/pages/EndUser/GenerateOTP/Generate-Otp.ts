@@ -6,7 +6,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 @Component({
     selector: 'Generate-OTP',
     templateUrl: 'Generate-OTP.html',
-    styleUrls : ['/Generate-Otp.scss']
+    styleUrls : ['./Generate-Otp.scss']
   })
 
   export class GenerateOTPComponent
