@@ -7,14 +7,14 @@ import { map, catchError } from 'rxjs/operators';
 import { HandleError } from '../../app/handleError';
 
 @Injectable()
-export class MSSPPersonalInfoSaveService extends URLConfig{
+export class MSSPExistingPersonalInfoSaveService extends URLConfig{
     constructor(private _http : HttpClient, 
         private _mssPersonalInfoModal : MsspPersonalInfoSaveModal,
         private _handleError : HandleError){
         super(); 
     }
 
-    saveMsspPersonalInfo(userID : string) : Observable<any>{
+    saveMsspPersonalInfo(personalInfoID : string) : Observable<any>{
         let boody = {
             "firstName": this._mssPersonalInfoModal.getFirstName(),
            "middleName": this._mssPersonalInfoModal.getMiddleName(),
@@ -30,8 +30,9 @@ export class MSSPPersonalInfoSaveService extends URLConfig{
            "canChecque":this._mssPersonalInfoModal.getcanChecque(),
             "id":this._mssPersonalInfoModal.getUserID()
         }
-        console.log("personal data is ::: "+boody);
-        return this._http.post(this.getMSSPPersonalInfoSaveServiceURL(),boody).pipe(
+        console.log("personal data is ::: ");
+        console.log(boody);
+        return this._http.put(this.getMSSPPersonalInfoUpdateServiceURL()+"/"+personalInfoID,boody).pipe(
             map(res=>res),
             catchError(this._handleError.handleError)
         );

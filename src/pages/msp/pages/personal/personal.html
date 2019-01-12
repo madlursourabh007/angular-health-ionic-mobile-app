@@ -18,19 +18,14 @@
         <ion-list>
             <ion-item>
                 <ion-label floating>First Name</ion-label>
-                <ion-input type="text" formControlName="firstname" minLength="5" maxLength="50"></ion-input>
+                <ion-input type="text" formControlName="firstname" minlength="5" maxlength="50"></ion-input>
             </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.firstname.invalid && (personalFormGroup.controls.firstname.dirty || personalFormGroup.controls.firstname.touched || personalFormGroup.controls.firstname.errors?.minLength || personalFormGroup.controls.firstname.errors?.maxLength)">firstname required and length should be between 5 and 50</div>
-            <ion-item >
-                <ion-label floating>Middle Name</ion-label>
-                <ion-input type="text" formControlName="middlename" minLength="5" maxLength="50"></ion-input>
-            </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.middlename.invalid && (personalFormGroup.controls.middlename.dirty || personalFormGroup.controls.middlename.touched || personalFormGroup.controls.middlename.errors?.minLength || personalFormGroup.controls.middlename.errors?.maxLength)">middlename required and length should be between 5 and 50</div>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.firstname.invalid && (personalFormGroup.controls.firstname.dirty || personalFormGroup.controls.firstname.touched)">firstname required</div>
             <ion-item>
                 <ion-label floating>Last Name</ion-label>
-                <ion-input type="text" formControlName="lastname" minLength="5" maxLength="50"></ion-input>
+                <ion-input type="text" formControlName="lastname" minlength="5" maxlength="50"></ion-input>
             </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.lastname.invalid && (personalFormGroup.controls.lastname.dirty || personalFormGroup.controls.lastname.touched || personalFormGroup.controls.lastname.errors?.minLength || personalFormGroup.controls.lastname.errors?.maxLength)">lastname required and length should be between 5 and 50</div>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.lastname.invalid && (personalFormGroup.controls.lastname.dirty || personalFormGroup.controls.lastname.touched)">lastname required</div>
             <ion-item>
                 <ion-label floating>DOB</ion-label>
                 <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="dob"></ion-datetime>
@@ -38,13 +33,13 @@
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.dob.invalid && (personalFormGroup.controls.dob.dirty || personalFormGroup.controls.dob.touched)">dob required</div>
             <ion-item>
                 <ion-label floating>Pan Number</ion-label>
-                <ion-input type="text" formControlName="pan" minLength="10" maxLength="10"></ion-input>
+                <ion-input type="text" formControlName="pan" minlength="10" maxlength="10"></ion-input>
                 <button ion-button clear item-right (click)="uploadDocument()"> <ion-icon style="margin-top : 2.8%;"  md="md-cloud-upload"> </ion-icon> </button>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.pan.invalid && (personalFormGroup.controls.pan.dirty || personalFormGroup.controls.pan.touched || personalFormGroup.controls.pan.errors?.minLength)">pan required and must contains 10 digits</div>
             <ion-item>
                 <ion-label floating>Aadhaar Number</ion-label>
-                <ion-input type="number" formControlName="aadhaar" minLength="12" maxLength="12"></ion-input>
+                <ion-input type="number" formControlName="aadhaar" maxlength="12"></ion-input>
                 <button style="margin-top : 2.8%;" ion-button clear item-right (click)="uploadDocument()"> <ion-icon md="md-cloud-upload"> </ion-icon> </button>
                 
                 <!-- <div class="uploadDiv">
@@ -56,24 +51,24 @@
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.aadhaar.invalid && (personalFormGroup.controls.aadhaar.dirty || personalFormGroup.controls.aadhaar.touched || personalFormGroup.controls.aadhaar.errors?.minLength)">aadhaar required and must contains 12 digits</div>
             <ion-item>
                 <ion-label floating>Bank Account Number</ion-label>
-                <ion-input type="string" formControlName="bank_account_no"></ion-input>
+                <ion-input type="text" formControlName="bank_account_no"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.bank_account_no.invalid && (personalFormGroup.controls.bank_account_no.dirty || personalFormGroup.controls.bank_account_no.touched)">bank account number required</div>
             <ion-item>
                 <ion-label floating>IFSC Code</ion-label>
-                <ion-input type="text" formControlName="ifsc" minLength="8" maxLength="20"></ion-input>
+                <ion-input type="text" formControlName="ifsc" minlength="8" maxlength="20"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.ifsc.invalid && (personalFormGroup.controls.ifsc.dirty || personalFormGroup.controls.ifsc.touched || personalFormGroup.controls.ifsc.errors?.minLength)">ifsc required and must contains atleast 8 charcters</div>
             <ion-item>
                 <ion-label floating>Bank Name</ion-label>
-                <ion-input type="text" formControlName="bank_name" minLength="4" maxLength="50"></ion-input>
+                <ion-input type="text" formControlName="bank_name" minlength="4" maxlength="50"></ion-input>
             </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.bank_name.invalid && (personalFormGroup.controls.bank_name.dirty || personalFormGroup.controls.bank_name.touched || personalFormGroup.controls.bank_name.errors?.minLength || personalFormGroup.controls.bank_name.errors?.maxLength)">bankname required and length should be between 4 and 50</div>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.bank_name.invalid && (personalFormGroup.controls.bank_name.dirty || personalFormGroup.controls.bank_name.touched || personalFormGroup.controls.bank_name.errors?.minLength)">bankname required and must contains atleast 4 charcters</div>
             <ion-item>
                 <ion-label floating>Branch</ion-label>
-                <ion-input type="text" formControlName="branch" minLength="5" maxLength="50"></ion-input>
+                <ion-input type="text" formControlName="branch" minlength="5" maxlength="50"></ion-input>
             </ion-item>
-            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.branch.invalid && (personalFormGroup.controls.branch.dirty || personalFormGroup.controls.branch.touched || personalFormGroup.controls.branch.errors?.minLength || personalFormGroup.controls.branch.errors?.maxLength)">branch required and length should be between 5 and 50</div>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.branch.invalid && (personalFormGroup.controls.branch.dirty || personalFormGroup.controls.branch.touched || personalFormGroup.controls.branch.errors?.minLength)">branch required and must contains atleast 5 characters</div>
             <ion-item>
                 <div class="uploadDiv">
                     <div>Cancelation Copy</div>

@@ -11,8 +11,8 @@ export class MsspPersonalInfoFetchService extends URLConfig{
     constructor(private _http : HttpClient,
     private _handleError : HandleError){super()}
 
-    fetchPersonalInfo(id : string) : Observable<MsspPersonalInfoSaveModal>{
-        return this._http.get<MsspPersonalInfoSaveModal>(this.getMSSPPersonalInfoFetchServiceURL()+"/"+id).pipe(
+    fetchPersonalInfo(id : string) : Observable<any>{
+        return this._http.get(this.getMSSPPersonalInfoFetchServiceURL()+"/"+id).pipe(
             map(res=>res),
             catchError(this._handleError.handleError)
         );

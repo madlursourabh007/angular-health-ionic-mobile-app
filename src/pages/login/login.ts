@@ -11,6 +11,7 @@ import { ValidateInvitationCodeService } from '../../service/mssp-validate-gener
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { FileChooser } from '@ionic-native/file-chooser';
+import { MsspPersonalInfoSaveModal } from '../../app/common/modal/mssp/mssp-personal-info-save-modal/mssp-personal-info-save-modal';
 
 /**
  * Generated class for the LoginPage page.
@@ -40,6 +41,7 @@ export class LoginPage {
     public _loginFormBuilder : FormBuilder, 
     public _invitationCodeAlert : AlertController,
     public personalInfoFetchService : MsspPersonalInfoFetchService,
+    private personalInfoSaveModal : MsspPersonalInfoSaveModal,
     public genarateInvitaionCodeService : MsspGenerateInvitationCodeServie,
     public invitationCodeModal : InvitationCodeModal,
     public loadingProgress : LoadingProgress,
@@ -62,11 +64,30 @@ export class LoginPage {
   askInvitationCode() : void {
     this.genarateProgressDialog("Generating invitation code. Please wait..")
     this.genarateInvitaionCodeService.getInvitationCode().subscribe( data=>{
-      this._appPref.store('userid',data._id).then(data=>console.log(data)).catch(err=>console.error("pref error"));
-      this.invitationCodeModal.setID(data._id);
-      this.invitationCodeModal.setTempID(data.temID);
-      this.dismissGenerateProgressDialog();
-      this.generateInvitationCodePopUP();
+      this._appPref.fetch('userid').then((id)=>{
+        if(id == "" || id == undefined){
+          this._appPref.store('userid',data._id).
+          then((prefData)=>{
+            this.invitationCodeModal.setID(data._id);
+            this.invitationCodeModal.setTempID(data.temID);
+            this.dismissGenerateProgressDialog();
+            this.generateInvitationCodePopUP();
+          })
+          .catch((err)=>{console.error("pref error")});
+        }
+        else{
+          this.invitationCodeModal.setID(id);
+          this.invitationCodeModal.setTempID(data.temID);
+          this.dismissGenerateProgressDialog();
+          this.generateInvitationCodePopUP();
+        }
+      }).catch((exce)=>{
+        this.invitationCodeModal.setID(data._id);
+          this.invitationCodeModal.setTempID(data.temID);
+          this.dismissGenerateProgressDialog();
+          this.generateInvitationCodePopUP();
+        console.error("Error occurred while checking existance of userid ::: "+exce);
+      });
     },err =>{
       alert("Error occurred during generating invitation code "+err);
     })
@@ -114,7 +135,15 @@ export class LoginPage {
     this.validateInvitationCodeService.validateInvitationCode(invitationCode).subscribe((data)=>{
       console.log("Validated Invitation code result :: "+data);
       this.dismissGenerateProgressDialog();
-      this.fetchExistingPersonalInformation();
+      this._appPref.fetch('personalInfo').then((appData)=>{
+        if(appData == "" || appData == undefined)
+          this.navCtrl.push('ProfileMainPage');
+        else
+          this.fetchExistingPersonalInformation();
+      }).catch((exception)=>{
+        console.log("Exception came ::");
+      })
+      
     },(err)=>{
       this.dismissGenerateProgressDialog();
       alert("Please provide correct invitation code");
@@ -122,16 +151,44 @@ export class LoginPage {
   }
 
   fetchExistingPersonalInformation() : void {
+    let personalInfoID;
     this.genarateProgressDialog("Looking for existance of previously filled data. Please wait..");
-    this.personalInfoFetchService.fetchPersonalInfo(this.invitationCodeModal.getID()).subscribe((data)=>{
-      this.dismissGenerateProgressDialog();
-      console.log(data);
-      this.navCtrl.push('ProfileMainPage');
-    },(err)=>{
-      this.dismissGenerateProgressDialog();
-      console.error("Problem occurred during fetching existing personal info.. :: "+err);
+    this._appPref.fetch('personalInfo').then((id)=>{
+      personalInfoID = id;
+      console.log("personalInfo is :: "+id);
+      this.personalInfoFetchService.fetchPersonalInfo(id).subscribe((data)=>{
+        this.dismissGenerateProgressDialog();
+        console.log(data[0].firstName);
+        this.personalInfoSaveModal.setFirstName(data[0].firstName);
+        this.personalInfoSaveModal.setMiddleName(data[0].middleName);
+        this.personalInfoSaveModal.setLastname(data[0].lastName);
+        this.personalInfoSaveModal.setPanNumber(data[0].pan.panNumber);
+        this.personalInfoSaveModal.setPanDocLink(data[0].pan.panDocLink);
+        this.personalInfoSaveModal.setAadhaarNumber(data[0].aadhaar.aadhaarNumber);
+        this.personalInfoSaveModal.setAadhaarDocLink(data[0].aadhaar.aadhaarDocLink);
+        this.personalInfoSaveModal.setAccountNumber(data[0].bankDetails.accountNumber);
+        this.personalInfoSaveModal.setbankName(data[0].bankDetails.bankName);
+        this.personalInfoSaveModal.setBranch(data[0].bankDetails.branch);
+        this.personalInfoSaveModal.setIfsc(data[0].bankDetails.ifsc);
+        this.personalInfoSaveModal.setcanChecque(data[0].bankDetails.canChecque);
+        this.navCtrl.push('ProfileMainPage');
+      },(err)=>{
+        this.dismissGenerateProgressDialog();
+        console.error("Problem occurred during fetching existing personal info.. :: "+err);
+      })
+    }).catch((exception)=>{
+      this.personalInfoFetchService.fetchPersonalInfo(personalInfoID).subscribe((data)=>{
+        this.dismissGenerateProgressDialog();
+        console.log(data);
+        this.navCtrl.push('ProfileMainPage');
+      },(err)=>{
+        this.dismissGenerateProgressDialog();
+        console.error("Problem occurred during fetching existing personal info.. :: "+err);
+      })
+      console.error("Excpetion occurred while fetching data from appPref:: "+exception);
     })
   }
+
 
   uplodFile() : void {
     let fileUploadOptions : FileUploadOptions = {
@@ -157,5 +214,69 @@ export class LoginPage {
       this.loadingProgress.dismissLoading();
       alert("Error occurred while choosing file. "+err);
     })
+  }
+
+  MSPSign()
+  {
+    this.genarateProgressDialog("Generating invitation code. Please wait..")
+    this.genarateInvitaionCodeService.getInvitationCode().subscribe( data=>{
+      this._appPref.store('userid',data._id).then(data=>console.log(data)).catch(err=>console.error("pref error"));
+      this.invitationCodeModal.setID(data._id);
+      this.invitationCodeModal.setTempID(data.temID);
+      this.dismissGenerateProgressDialog();
+      this.MSPgenerateInvitationCodePopUP();
+    },err =>{
+      alert("Error occurred during generating invitation code "+err);
+    })
+  }
+   // this.navCtrl.setRoot('MspPage')
+   fetchMSPExistingPersonalInformation() : void {
+    this.genarateProgressDialog("Looking for existance of previously filled data. Please wait..");
+    this.personalInfoFetchService.fetchPersonalInfo(this.invitationCodeModal.getID()).subscribe((data)=>{
+      this.dismissGenerateProgressDialog();
+      console.log(data);
+      this.navCtrl.push('MspPage');
+    },(err)=>{
+      this.dismissGenerateProgressDialog();
+      console.error("Problem occurred during fetching existing personal info.. :: "+err);
+    })
+  }
+
+  MSPvalidateInvitationCode(invitationCode : string) : void {
+    this.genarateProgressDialog("Validating invitation code. Please wait.");
+    this.validateInvitationCodeService.validateInvitationCode(invitationCode).subscribe((data)=>{
+      console.log("Validated Invitation code result :: ");
+      console.log(data);
+      this.dismissGenerateProgressDialog();
+      this.fetchMSPExistingPersonalInformation();
+    },(err)=>{
+      this.dismissGenerateProgressDialog();
+      alert("Please provide correct invitation code");
+    })
+  }
+
+
+  MSPgenerateInvitationCodePopUP() : void {
+    const codeAlert = this._invitationCodeAlert.create({
+      title : 'O2 Medicine',
+      inputs : [{
+        name : 'invitationCode',
+        placeholder : 'Enter InvitationCode',
+        value : this.invitationCodeModal.getTempID()
+      }],
+      buttons : [{
+        text : 'NEXT',
+        handler : data =>{
+          this.MSPvalidateInvitationCode(data.invitationCode);
+        }
+      },
+      {
+        text : 'CANCEL',
+        handler : data =>{
+
+        }
+      }]
+    });
+    codeAlert.present();
   }
 }

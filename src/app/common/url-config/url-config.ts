@@ -8,8 +8,20 @@ export class URLConfig {
         return "http://13.233.190.134:3000/api/personalInfo";//"/fetch_personal_info"; //
     }
 
+    public getMSSPPersonalInfoUpdateServiceURL() : string {
+        return "http://13.233.190.134:3000/api/personalInfo";//"/fetch_personal_info"; //
+    }
+
     public getMSSPEducationalInfoSaveServiceURL() : string {
         return  "http://13.233.190.134:3000/api/education/add";//"save_educational_info"
+    }
+
+    public getMSSPEducationalInfoFetchServiceURL() : string {
+        return  "http://13.233.190.134:3000/api/education/";//"save_educational_info"
+    }
+
+    public getMSSPEducationalInfoUpdateServiceURL() : string {
+        return  "http://13.233.190.134:3000/api/education/";//"save_educational_info"
     }
 
     public getMSSPFinancialInfoSaveServiceURL() : string {

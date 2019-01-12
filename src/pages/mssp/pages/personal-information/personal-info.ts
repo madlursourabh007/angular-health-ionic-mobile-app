@@ -10,6 +10,9 @@ import { MSSPPersonalInfoSaveService } from '../../../../service/mssp-personal-i
 import { MsspPersonalInfoSaveModal } from '../../../../app/common/modal/mssp/mssp-personal-info-save-modal/mssp-personal-info-save-modal';
 import { LoadingProgress } from '../../../../app/common/loading/loading';
 import { InvitationCodeModal } from '../../../../app/common/modal/inviatation-code-modal/inviataion.code.modal';
+import { AppPreferences } from '@ionic-native/app-preferences';
+import { MSSPExistingPersonalInfoSaveService } from '../../../../service/mssp-existing-personal-info-save-service/mssp-existing-personal-info-save.service';
+import { App } from 'ionic-angular/components/app/app';
 
 const config = {
     bucketName: 'o2_medicine_documents',
@@ -21,7 +24,7 @@ const config = {
 @Component({
     selector : 'personal-info',
     templateUrl : './personal-info.html',
-    styleUrls : ['/personal-info.scss']
+    styleUrls : ['./personal-info.scss']
 })
 
 export class PersonalInfo{
@@ -34,16 +37,19 @@ export class PersonalInfo{
     private _service : MSSPPersonalInfoSaveService,
     private loadingControllerUIService : LoadingProgress,
     private personalInfoSaveModal : MsspPersonalInfoSaveModal,
-    private invitationCodeModal : InvitationCodeModal){
+    private saveexistingPersonalInfoService : MSSPExistingPersonalInfoSaveService,
+    private invitationCodeModal : InvitationCodeModal,
+    private _appRef : AppPreferences,
+    private _appCntrl : App){
         
         this.personalFormGroup = this._personalInfoFormBuilder.group({
-            firstname : ['',Validators.required],
-            lastname : ['', Validators.required],
-            middlename : ['',Validators.required],
+            firstname : ['',Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)])],
+            lastname : ['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)])],
+            middlename : ['',Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)])],
             bank_account_no : ['',Validators.required],
             ifsc : ['',Validators.compose([Validators.required,Validators.minLength(8)])],
-            bank_name : ['',Validators.compose([Validators.required,Validators.minLength(4)])],
-            branch : ['',Validators.compose([Validators.required,Validators.minLength(5)])],
+            bank_name : ['',Validators.compose([Validators.required,Validators.minLength(4),Validators.maxLength(50)])],
+            branch : ['',Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)])],
             dob : ['',Validators.required],
             pan : ['',Validators.compose([Validators.required,Validators.maxLength(10),Validators.minLength(10)])],
             aadhaar : ['',Validators.compose([Validators.required,Validators.maxLength(12),Validators.minLength(12)])]
@@ -51,7 +57,10 @@ export class PersonalInfo{
     }
 
     ionViewDidEnter(){
-       
+        this._appRef.fetch('personalInfo').then((result)=>{
+            if(result !="" || result != undefined)
+                this.displayMsspPersonalInfo();
+        })
     }
 
     uploadDocument() : void {
@@ -71,7 +80,20 @@ export class PersonalInfo{
     }
 
     logOut() : void {
-        this._navCntrl.setRoot("LoginPage");
+        this._appCntrl.getRootNav().setRoot('LoginPage');
+    }
+
+    displayMsspPersonalInfo() : void {
+        this.personalFormGroup.get('firstname').setValue(this.personalInfoSaveModal.getFirstName())
+        this.personalFormGroup.get('middlename').setValue(this.personalInfoSaveModal.getMiddleName());
+        this.personalFormGroup.get('lastname').setValue(this.personalInfoSaveModal.getLastname());
+        this.personalFormGroup.get('bank_account_no').setValue(this.personalInfoSaveModal.getAccountNumber());
+        this.personalFormGroup.get('pan').setValue(this.personalInfoSaveModal.getPanNumber());
+        this.personalFormGroup.get('aadhaar').setValue(this.personalInfoSaveModal.getAadhaarNumber());
+        this.personalFormGroup.get('ifsc').setValue(this.personalInfoSaveModal.getIfsc());
+        this.personalFormGroup.get('bank_name').setValue(this.personalInfoSaveModal.getbankName());
+        this.personalFormGroup.get('branch').setValue(this.personalInfoSaveModal.getBranch());
+        //this.personalInfoSaveModal.se(this.personalFormGroup.get('dob').value);
     }
 
     saveMsspPersonalInfo() : void {
@@ -92,14 +114,32 @@ export class PersonalInfo{
         
         this.loadingControllerUIService.generateLoadingProgress("Saving your personal information. Please wait..");
         this.loadingControllerUIService.showLoading();
-        
-        this._service.saveMsspPersonalInfo().subscribe((data)=>{
-           this.loadingControllerUIService.dismissLoading();
-           console.log('Personal Info Save result :: '+data._id);
-            alert("Your personal information saved sucessfully.");
-        },(err)=>{
+        this._appRef.fetch('personalInfo').then((res)=>{
+            if(res == "" || res == undefined)
+            {
+                this._service.saveMsspPersonalInfo(this.invitationCodeModal.getID()).subscribe((data)=>{
+                    this.loadingControllerUIService.dismissLoading();
+                    console.log('Personal Info Save result :: '+Object.keys(data));
+                     alert("Your personal information saved sucessfully.");
+                     this._appRef.store('personalInfo',data.personalInfo);
+                 },(err)=>{
+                     this.loadingControllerUIService.dismissLoading();
+                     alert("error ocurred : "+err)
+                 });
+            }
+            else{
+                this.saveexistingPersonalInfoService.saveMsspPersonalInfo(res).subscribe((data)=>{
+                    this.loadingControllerUIService.dismissLoading();
+                    console.log('Personal Info Save result :: '+Object.keys(data));
+                     alert("Your personal information saved sucessfully.");
+                 },(err)=>{
+                     this.loadingControllerUIService.dismissLoading();
+                     alert("error ocurred : "+err)
+                 }); 
+            }
+        }).catch((error)=>{
             this.loadingControllerUIService.dismissLoading();
-            alert("error ocurred : "+err)
-        });
+            console.error("Preff not found...");
+        })
     }
 }

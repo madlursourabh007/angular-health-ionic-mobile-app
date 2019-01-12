@@ -1,0 +1,19 @@
+.buttonColor{
+    background: #808080;
+    margin-left: 2%;
+    margin-top :1%;
+    position: flex;
+}
+
+.uploadDiv{
+    display: flex;
+    justify-content: space-between
+}
+
+.divErrorMessage{
+    color: red;
+    font-weight: bold;
+    padding-left: 16px;
+    padding-right: 0;
+    position: relative;
+}

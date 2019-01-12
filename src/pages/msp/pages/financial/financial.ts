@@ -4,15 +4,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { MSSPFinancialInfoSaveService } from '../../../../service/mssp/financial-info-save-service/financial-info-save.service';
 import { MSSPFinancialInfoSaveModal } from '../../../../app/common/modal/mssp/mssp-financial-info-save-modal/mssp-financial-info-save.modal';
-
 @IonicPage()
 @Component({
-    selector : 'financial-information',
-    templateUrl : './financial-information.html',
-    styleUrls : ['./financial-information.scss']
+  selector: 'page-financial',
+  templateUrl: 'financial.html',
 })
-export class FinancialInformation{
-    financialFormGroup : FormGroup;
+export class FinancialPage {
+
+  financialFormGroup : FormGroup;
     isDocumantUploaded : boolean = false;
 
     constructor(private _formBuilder : FormBuilder, 

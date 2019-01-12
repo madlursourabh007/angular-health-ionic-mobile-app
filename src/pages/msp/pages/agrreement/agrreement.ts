@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, AlertController } from 'ionic-angular';
 import { FileChooser } from '@ionic-native/file-chooser';
-
 @IonicPage()
 @Component({
-    selector : 'agreement',
-    templateUrl : './agreement.html',
-    styleUrls : ['./agreement.scss']
+  selector: 'page-agrreement',
+  templateUrl: 'agrreement.html',
 })
+export class AgrreementPage {
 
-export class Agreement{
-    isDocumantUploaded : boolean = false;
+  isDocumantUploaded : boolean = false;
     constructor(private _fileChooser : FileChooser, private alertController : AlertController ){}
     
     uploadDocument() : void {
@@ -27,4 +25,8 @@ export class Agreement{
             })
         })
     }
-}
+  }
+
+
+
+
