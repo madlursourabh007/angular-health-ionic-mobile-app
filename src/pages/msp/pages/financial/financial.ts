@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileChooser } from '@ionic-native/file-chooser';
-import { MSSPFinancialInfoSaveService } from '../../../../service/mssp/financial-info-save-service/financial-info-save.service';
 import { MSSPFinancialInfoSaveModal } from '../../../../app/common/modal/mssp/mssp-financial-info-save-modal/mssp-financial-info-save.modal';
+import { MSSPFinancialInfoSaveService } from '../../../../service/mssp/financial-info-service/financial-info-save-service/financial-info-save.service';
 @IonicPage()
 @Component({
   selector: 'page-financial',

@@ -15,7 +15,7 @@ export class MsspGenerateInvitationCodeServie extends URLConfig{
     getInvitationCode() : Observable<InvitationCodeModal>{
         let body = {
             "status":false,
-            "role" : "MSSP"
+            "role" : "1"
         }
         return this._http.post<InvitationCodeModal>(this.getGenerateInvitationCodeServiceURL(),body).pipe(
             map(res=>res),

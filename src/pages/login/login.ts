@@ -171,6 +171,7 @@ export class LoginPage {
         this.personalInfoSaveModal.setBranch(data[0].bankDetails.branch);
         this.personalInfoSaveModal.setIfsc(data[0].bankDetails.ifsc);
         this.personalInfoSaveModal.setcanChecque(data[0].bankDetails.canChecque);
+        this.personalInfoSaveModal.setDOB(data[0].dob);
         this.navCtrl.push('ProfileMainPage');
       },(err)=>{
         this.dismissGenerateProgressDialog();

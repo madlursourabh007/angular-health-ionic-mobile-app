@@ -15,6 +15,7 @@ export class MsspPersonalInfoSaveModal{
     branch : string;
     canChecque : string;
     id : string;
+    dob : string;
 
     /*
     *Setters
@@ -71,6 +72,10 @@ export class MsspPersonalInfoSaveModal{
         this.id = id;
     }
 
+    public setDOB( dob : string){
+        this.dob = dob;
+    }
+
     /*
     *Getters
     */
@@ -124,5 +129,9 @@ export class MsspPersonalInfoSaveModal{
 
     public getUserID() : string {
         return this.id;
+    }
+
+    public getDOB() : string {
+        return this.dob;
     }
 }

@@ -3,19 +3,12 @@
         <ion-list>
             <ion-grid>
                 <ion-row>
-                    <ion-col col-5>
-                        <ion-item>
-                            <ion-label style="font-size: 15px;" floating>BG/LC Amt</ion-label>
-                            <ion-input type="number" formControlName="bg_lc_amount"></ion-input>
+                    <ion-col col-8>
+                        <ion-item no-lines>
+                            <ion-label floating>Deposit Amount</ion-label>
+                            <ion-input type="number" formControlName="depositAmount"></ion-input>
                         </ion-item>
-                        <div class="divErrorMessage" *ngIf="financialFormGroup.controls.bg_lc_amount.invalid && (financialFormGroup.controls.bg_lc_amount.touched || financialFormGroup.controls.bg_lc_amount.dirty)">BG/LC amount required</div>
-                    </ion-col>
-                    <ion-col col-5>
-                        <ion-item>
-                            <ion-label style="font-size: 15px;" floating>BG/LC Period</ion-label>
-                            <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="bg_lc_period"></ion-datetime>
-                        </ion-item>
-                        <div class="divErrorMessage" *ngIf="financialFormGroup.controls.bg_lc_period.invalid && (financialFormGroup.controls.bg_lc_period.touched || financialFormGroup.controls.bg_lc_period.dirty)">BG/LC period required</div>
+                        <div class="divErrorMessage" *ngIf="financialFormGroup.controls.depositAmount.invalid && (financialFormGroup.controls.depositAmount.touched || financialFormGroup.controls.depositAmount.dirty)">deposit amount required</div>
                     </ion-col>
                     <ion-col col-2>
                         <img src="https://bit.ly/2RnXJlR" height="50px;" style="margin-top:50%;">
@@ -23,31 +16,25 @@
                 </ion-row>
 
                 <ion-row>
-                    <ion-col col-5>
+                    <ion-col col-8>
                         <ion-item>
-                            <ion-label style="font-size: 15px;" floating>FD Amt</ion-label>
-                            <ion-input type="number" formControlName="fd_amount"></ion-input>
+                            <ion-label floating>Deposit Date</ion-label>
+                            <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="depositDate"></ion-datetime>
                         </ion-item>
-                        <div class="divErrorMessage" *ngIf="financialFormGroup.controls.fd_amount.invalid && (financialFormGroup.controls.bg_lc_amount.touched || financialFormGroup.controls.bg_lc_amount.dirty)">BG/LC amount required</div>
-                    </ion-col>
-                    <ion-col col-5>
-                        <ion-item>
-                            <ion-label style="font-size: 15px;" floating>Lien Period</ion-label>
-                            <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="lien_period"></ion-datetime>
-                        </ion-item>
-                        <div class="divErrorMessage" *ngIf="financialFormGroup.controls.lien_period.invalid && (financialFormGroup.controls.lien_period.touched || financialFormGroup.controls.lien_period.dirty)">BG/LC period required</div>
-                    </ion-col>
-                    <ion-col col-2>
-                       <img src="https://bit.ly/2RnXJlR" height="50px;" style="margin-top:50%;">
+                        <div class="divErrorMessage" *ngIf="financialFormGroup.controls.depositDate.invalid && (financialFormGroup.controls.depositDate.touched || financialFormGroup.controls.depositDate.dirty)">deposit date required</div>
                     </ion-col>
                 </ion-row>
+
+                <ion-row>
+                    <ion-col col-8>
+                        <ion-item no-lines>
+                            <ion-label floating>Deposit Reciept Number</ion-label>
+                            <ion-input type="number" formControlName="depositRecieptNumber"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <div class="divErrorMessage" *ngIf="financialFormGroup.controls.depositRecieptNumber.invalid && (financialFormGroup.controls.depositRecieptNumber.touched || financialFormGroup.controls.depositRecieptNumber.dirty)">deposit reciept number required</div>
+                </ion-row>
             </ion-grid>
-           
-            <!-- <ion-item>
-                <ion-label floating>Deposit Date</ion-label>
-                <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="deposit_date"></ion-datetime>
-            </ion-item>
-            <div class="divErrorMessage" *ngIf="financialFormGroup.controls.deposit_date.invalid && (financialFormGroup.controls.deposit_date.touched || financialFormGroup.controls.deposit_date.dirty)">deposit date required</div>  -->
         </ion-list>
         <div style="display: flex;justify-content: center;">
             <button ion-button class="buttonColor" [disabled]="!financialFormGroup.valid" (click)="saveFinancialInformation()">SAVE</button>

@@ -43,13 +43,13 @@ export class PersonalInfo{
     private _appCntrl : App){
         
         this.personalFormGroup = this._personalInfoFormBuilder.group({
-            firstname : ['',Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)])],
-            lastname : ['', Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)])],
-            middlename : ['',Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)])],
+            firstname : ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(20)])],
+            lastname : ['', Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(20)])],
+            middlename : ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(20)])],
             bank_account_no : ['',Validators.required],
-            ifsc : ['',Validators.compose([Validators.required,Validators.minLength(8)])],
-            bank_name : ['',Validators.compose([Validators.required,Validators.minLength(4),Validators.maxLength(50)])],
-            branch : ['',Validators.compose([Validators.required,Validators.minLength(5),Validators.maxLength(50)])],
+            ifsc : ['',Validators.compose([Validators.required,Validators.minLength(6),Validators.maxLength(20)])],
+            bank_name : ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(20)])],
+            branch : ['',Validators.compose([Validators.required,Validators.minLength(3),Validators.maxLength(20)])],
             dob : ['',Validators.required],
             pan : ['',Validators.compose([Validators.required,Validators.maxLength(10),Validators.minLength(10)])],
             aadhaar : ['',Validators.compose([Validators.required,Validators.maxLength(12),Validators.minLength(12)])]
@@ -93,7 +93,7 @@ export class PersonalInfo{
         this.personalFormGroup.get('ifsc').setValue(this.personalInfoSaveModal.getIfsc());
         this.personalFormGroup.get('bank_name').setValue(this.personalInfoSaveModal.getbankName());
         this.personalFormGroup.get('branch').setValue(this.personalInfoSaveModal.getBranch());
-        //this.personalInfoSaveModal.se(this.personalFormGroup.get('dob').value);
+       this.personalFormGroup.get('dob').setValue(this.personalInfoSaveModal.getDOB())
     }
 
     saveMsspPersonalInfo() : void {
@@ -106,7 +106,7 @@ export class PersonalInfo{
         this.personalInfoSaveModal.setIfsc(this.personalFormGroup.get('ifsc').value);
         this.personalInfoSaveModal.setbankName(this.personalFormGroup.get('bank_name').value);
         this.personalInfoSaveModal.setBranch(this.personalFormGroup.get('branch').value);
-        //this.personalInfoSaveModal.se(this.personalFormGroup.get('dob').value);
+        this.personalInfoSaveModal.setDOB(this.personalFormGroup.get('dob').value);
         this.personalInfoSaveModal.setPanDocLink("pan.pdf");
         this.personalInfoSaveModal.setAadhaarDocLink("aadhaar.pdf");
         this.personalInfoSaveModal.setcanChecque("cheque.pdf");
