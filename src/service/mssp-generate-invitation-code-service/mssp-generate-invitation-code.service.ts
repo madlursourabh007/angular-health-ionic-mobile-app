@@ -12,10 +12,19 @@ export class MsspGenerateInvitationCodeServie extends URLConfig{
     constructor(private _http : HttpClient,
     private handleError : HandleError ){super()}
 
-    getInvitationCode() : Observable<InvitationCodeModal>{
-        let body = {
-            "status":false,
-            "role" : "1"
+    getInvitationCode(role : string) : Observable<InvitationCodeModal>{
+        let body;
+        if(role == "mssp"){
+            body = {
+                "status":false,
+                "role" : "1"
+            }
+        }
+        else{
+            body = {
+                "status":false,
+                "role" : "2"
+            }
         }
         return this._http.post<InvitationCodeModal>(this.getGenerateInvitationCodeServiceURL(),body).pipe(
             map(res=>res),

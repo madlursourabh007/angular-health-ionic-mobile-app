@@ -6,6 +6,7 @@ import { MSSPPersonalInfoSaveService } from '../../../../service/mssp-personal-i
 import { AlertController } from 'ionic-angular';
 import { MsspPersonalInfoFetchService } from '../../../../service/mssp-personal-info-fetch-service/mssp-personal-info-fetch.service';
 import { PersonalPage } from './personal';
+import { MSSPExistingPersonalInfoSaveService } from '../../../../service/mssp-existing-personal-info-save-service/mssp-existing-personal-info-save.service';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,6 @@ import { PersonalPage } from './personal';
   imports: [
     IonicPageModule.forChild(PersonalPage),
   ],
-  providers : [ReactiveFormsModule,FileChooser,MSSPPersonalInfoSaveService,AlertController,MsspPersonalInfoFetchService],
+  providers : [ReactiveFormsModule,FileChooser,MSSPPersonalInfoSaveService,AlertController,MsspPersonalInfoFetchService,MSSPExistingPersonalInfoSaveService],
 })
 export class PersonalPageModule {}

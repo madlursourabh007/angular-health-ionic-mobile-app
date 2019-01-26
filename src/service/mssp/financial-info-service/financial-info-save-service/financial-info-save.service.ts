@@ -9,20 +9,38 @@ import { MSSPFinancialInfoSaveModal } from '../../../../app/common/modal/mssp/ms
 
 @Injectable()
 export class MSSPFinancialInfoSaveService extends URLConfig{
+    body : any;
+    serviceURL : string = "";
     constructor(private _http : HttpClient,
     private handleError : HandleError,
     private invitationCodeModal : InvitationCodeModal){super()}
 
     saveFinancialInfo(financialSaveModal : MSSPFinancialInfoSaveModal) : Observable<any>{
-        let body = {
-            "depositAmount":financialSaveModal.getDepositAmount(),
-             "receiptDocLink":financialSaveModal.getRecieptDocLink(),
-             "depositDate" : financialSaveModal.getDepositDate(),
-            "depositReceiptNumber" : financialSaveModal.getDepositReceiptNumber(),
-            "id" : this.invitationCodeModal.getID()
+        if(localStorage.getItem('role') == "mssp"){
+            this.body = {
+                "depositAmount":financialSaveModal.getDepositAmount(),
+                 "receiptDocLink":financialSaveModal.getRecieptDocLink(),
+                 "depositDate" : financialSaveModal.getDepositDate(),
+                "depositReceiptNumber" : financialSaveModal.getDepositReceiptNumber(),
+                "id" : this.invitationCodeModal.getID()
+            }
+            this.serviceURL = this.getMSSPFinancialInfoSaveServiceURL()
+;        }
+        else{
+                this.body = {
+                "amount" : financialSaveModal.getBGLCAmount(),
+                "fdAmount" : financialSaveModal.getFDAmount(),
+                "bgLcPersiod" : financialSaveModal.getBGLCPeriod() + "/" + financialSaveModal.getBGLCEndPeriod(),
+                "lienPeriod" : financialSaveModal.getLienPeriod() + "/" + financialSaveModal.getLienEndPeriod(),
+                "bgLcDoc":"bgLcDocLink1",
+                "lienDoc":"lienDocLink1",
+                "id" : this.invitationCodeModal.getID()
+            }
+            this.serviceURL = this.getMSPFinancialInfoSaveServiceURL();
         }
-
-        return this._http.post(this.getMSSPFinancialInfoSaveServiceURL(),body).pipe(
+       console.log("ROle is :: "+localStorage.getItem('role'));
+       console.log(this.body);
+        return this._http.post(this.serviceURL,this.body).pipe(
             map(res=>res),
             catchError(this.handleError.handleError)
         );

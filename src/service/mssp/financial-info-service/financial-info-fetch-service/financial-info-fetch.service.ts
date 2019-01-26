@@ -7,12 +7,16 @@ import { HandleError } from '../../../../app/handleError';
 
 @Injectable()
 export class FinancialInfoFetchService extends URLConfig{
+    serviceURL : string = "";
     constructor(private _http : HttpClient,
     private handleError : HandleError){super()}
 
     fetchFinancialInfo(financialInfoID : string) : Observable<any>{
-        alert('Financial fetch URL :: '+this.getMSSPFinancialInfoFetchServiceURL()+financialInfoID);
-        return this._http.get(this.getMSSPFinancialInfoFetchServiceURL()+financialInfoID).pipe(
+        if(localStorage.getItem('role') == "mssp")
+            this.serviceURL = this.getMSSPFinancialInfoFetchServiceURL();
+        else
+            this.serviceURL = this.getMSPFinancialInfoFetchServiceURL();
+        return this._http.get(this.serviceURL+financialInfoID).pipe(
             map(res=>res),
             catchError(this.handleError.handleError)
         )

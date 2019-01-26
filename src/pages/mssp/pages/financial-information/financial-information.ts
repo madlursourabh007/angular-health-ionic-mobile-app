@@ -17,7 +17,9 @@ import { MSSPFinancialExistingInfoSaveService } from '../../../../service/mssp/f
 })
 export class FinancialInformation{
     financialFormGroup : FormGroup;
+    mspFinancialFormGroup : FormGroup;
     isDocumantUploaded : boolean = false;
+    role : string = "mssp";
 
     constructor(private _formBuilder : FormBuilder, 
         private _fileChooser : FileChooser, 
@@ -28,11 +30,24 @@ export class FinancialInformation{
         private appPref : AppPreferences,
         private financialInfoFetchservice : FinancialInfoFetchService,
         private saveExistingFinancoInfo : MSSPFinancialExistingInfoSaveService){
-        this.financialFormGroup = this._formBuilder.group({
-            depositAmount : ['',Validators.required],
-            depositDate : ['',Validators.required],
-            depositRecieptNumber : ['',Validators.required]
-        })
+        if(localStorage.getItem('role')=='mssp'){
+            this.financialFormGroup = this._formBuilder.group({
+                depositAmount : ['',Validators.required],
+                depositDate : ['',Validators.required],
+                depositRecieptNumber : ['',Validators.required]
+            });
+        }
+        else if(localStorage.getItem('role')=='msp'){
+            this.role = "msp";
+            this.mspFinancialFormGroup = this._formBuilder.group({
+                bglcAmount : ['',Validators.required],
+                bglcPeriod : ['',Validators.required],
+                bglcendPeriod : ['',Validators.required],
+                fdAmount : ['',Validators.required],
+                lienPeriod : ['',Validators.required],
+                lienendPeriod : ['',Validators.required]
+            })
+        }
     }
 
     ionViewDidLoad() : void {
@@ -60,9 +75,19 @@ export class FinancialInformation{
     }
 
     loadExsitingFinanceInfo() : void {
-        this.financialFormGroup.get('depositAmount').setValue(this.financialInfoSaveModal.getDepositAmount());
-        this.financialFormGroup.get('depositDate').setValue(this.financialInfoSaveModal.getDepositDate());
-        this.financialFormGroup.get('depositRecieptNumber').setValue(this.financialInfoSaveModal.getDepositReceiptNumber());
+        if(localStorage.getItem('role') == "mssp"){
+            this.financialFormGroup.get('depositAmount').setValue(this.financialInfoSaveModal.getDepositAmount());
+            this.financialFormGroup.get('depositDate').setValue(this.financialInfoSaveModal.getDepositDate());
+            this.financialFormGroup.get('depositRecieptNumber').setValue(this.financialInfoSaveModal.getDepositReceiptNumber());
+        }
+        else{
+            this.mspFinancialFormGroup.get('bglcAmount').setValue(this.financialInfoSaveModal.getBGLCAmount());
+            this.mspFinancialFormGroup.get('bglcPeriod').setValue(this.financialInfoSaveModal.getBGLCPeriod());
+            this.mspFinancialFormGroup.get('bglcendPeriod').setValue(this.financialInfoSaveModal.getBGLCEndPeriod());
+            this.mspFinancialFormGroup.get('fdAmount').setValue(this.financialInfoSaveModal.getFDAmount());
+            this.mspFinancialFormGroup.get('lienPeriod').setValue(this.financialInfoSaveModal.getLienPeriod());
+            this.mspFinancialFormGroup.get('lienendPeriod').setValue(this.financialInfoSaveModal.getLienEndPeriod());
+        }
     }
 
     uploadDocument() : void {
@@ -81,40 +106,82 @@ export class FinancialInformation{
     }
 
     saveFinancialInformation() : void {
-        this.appPref.fetch('financialInfo').then(appPrefData=>
-            {
-                this.loadingProgress.generateLoadingProgress("Saving your finacial information. Please wait..");
-                this.loadingProgress.showLoading();
-                this.financialInfoSaveModal.setDepositAmount(this.financialFormGroup.get('depositAmount').value)
-                this.financialInfoSaveModal.setDepositDate(this.financialFormGroup.get('depositDate').value)
-                this.financialInfoSaveModal.setDepositReceiptNumber(this.financialFormGroup.get('depositRecieptNumber').value)
-                this.financialInfoSaveModal.setRecieptDocLink("doc.pdf");
-                if(appPrefData =="" || appPrefData == undefined){
-                    this.financialInfoSaveService.saveFinancialInfo(this.financialInfoSaveModal)
-                    .subscribe((result)=>{
-                        this.loadingProgress.dismissLoading();
-                        console.log("Financial save info :: ");
-                        console.log(result);
-                        this.appPref.store('financialInfo',result.financialInfo).then((res)=>{
-                            console.log(res);
-                        }).catch((exception)=>{
-                            console.error("Error occurred while storing finance is in prefrence.")
-                        });
-                        alert("Your financial information saved successfully.");
-                    },(err)=>{
-                        this.loadingProgress.dismissLoading();
-                        alert("Error occurred while saving fiancial information. "+err);
+        if(localStorage.getItem('role') == "mssp"){
+            this.appPref.fetch('financialInfo').then(appPrefData=>
+                {
+                    this.loadingProgress.generateLoadingProgress("Saving your finacial information. Please wait..");
+                    this.loadingProgress.showLoading();
+                    this.financialInfoSaveModal.setDepositAmount(this.financialFormGroup.get('depositAmount').value)
+                    this.financialInfoSaveModal.setDepositDate(this.financialFormGroup.get('depositDate').value)
+                    this.financialInfoSaveModal.setDepositReceiptNumber(this.financialFormGroup.get('depositRecieptNumber').value)
+                    this.financialInfoSaveModal.setRecieptDocLink("doc.pdf");
+                    if(appPrefData =="" || appPrefData == undefined){
+                        this.financialInfoSaveService.saveFinancialInfo(this.financialInfoSaveModal)
+                        .subscribe((result)=>{
+                            this.loadingProgress.dismissLoading();
+                            console.log("Financial save info :: ");
+                            console.log(result);
+                            this.appPref.store('financialInfo',result.financialInfo).then((res)=>{
+                                console.log(res);
+                            }).catch((exception)=>{
+                                console.error("Error occurred while storing finance is in prefrence.")
+                            });
+                            alert("Your financial information saved successfully.");
+                        },(err)=>{
+                            this.loadingProgress.dismissLoading();
+                            alert("Error occurred while saving fiancial information. "+err);
+                        })
+                    }
+                    else{
+                this.saveExistingFinancoInfo.saveFinancialInfo(this.financialInfoSaveModal,appPrefData).subscribe(result=>{
+                this.loadingProgress.dismissLoading();
+                alert("Your financial information saved successfully.");
+                },error=>{
+                    this.loadingProgress.dismissLoading();
+                    alert(error);
                     })
                 }
-                else{
-            this.saveExistingFinancoInfo.saveFinancialInfo(this.financialInfoSaveModal,appPrefData).subscribe(result=>{
-            this.loadingProgress.dismissLoading();
-            alert("Your financial information saved successfully.");
-            },error=>{
+            })
+        }
+        else if(localStorage.getItem('role') == "msp"){
+            this.appPref.fetch('financialInfo').then(appPrefData=>
+                {
+                    this.loadingProgress.generateLoadingProgress("Saving your finacial information. Please wait..");
+                    this.loadingProgress.showLoading();
+                    this.financialInfoSaveModal.setBGLCAmount(this.mspFinancialFormGroup.get('bglcAmount').value)
+                    this.financialInfoSaveModal.setBGLCPeriod(this.mspFinancialFormGroup.get('bglcPeriod').value)
+                    this.financialInfoSaveModal.setBGLCEndPeriod(this.mspFinancialFormGroup.get('bglcendPeriod').value)
+                    this.financialInfoSaveModal.setFDAmount(this.mspFinancialFormGroup.get('fdAmount').value)
+                    this.financialInfoSaveModal.setLienPeriod(this.mspFinancialFormGroup.get('lienPeriod').value);
+                    this.financialInfoSaveModal.setLienEndPeriod(this.mspFinancialFormGroup.get('lienendPeriod').value);
+                    if(appPrefData =="" || appPrefData == undefined){
+                        this.financialInfoSaveService.saveFinancialInfo(this.financialInfoSaveModal)
+                        .subscribe((result)=>{
+                            this.loadingProgress.dismissLoading();
+                            console.log("Financial save info :: ");
+                            console.log(result);
+                            this.appPref.store('financialInfo',result.financialInfo).then((res)=>{
+                                console.log(res);
+                            }).catch((exception)=>{
+                                console.error("Error occurred while storing finance is in prefrence.")
+                            });
+                            alert("Your financial information saved successfully.");
+                        },(err)=>{
+                            this.loadingProgress.dismissLoading();
+                            alert("Error occurred while saving fiancial information. "+err);
+                        })
+                    }
+                    else{
+                        alert("Pref data available");
+                this.saveExistingFinancoInfo.saveFinancialInfo(this.financialInfoSaveModal,appPrefData).subscribe(result=>{
                 this.loadingProgress.dismissLoading();
-                alert(error);
-                })
-            }
-        })
+                alert("Your financial information saved successfully.");
+                },error=>{
+                    this.loadingProgress.dismissLoading();
+                    alert(error);
+                    })
+                }
+            })
+        }
     }
 }

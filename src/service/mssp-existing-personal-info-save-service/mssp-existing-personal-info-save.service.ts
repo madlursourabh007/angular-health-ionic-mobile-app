@@ -28,7 +28,8 @@ export class MSSPExistingPersonalInfoSaveService extends URLConfig{
            "bankName" : this._mssPersonalInfoModal.getbankName(),
            "branch": this._mssPersonalInfoModal.getBranch(),
            "canChecque":this._mssPersonalInfoModal.getcanChecque(),
-            "id":this._mssPersonalInfoModal.getUserID()
+            "id":this._mssPersonalInfoModal.getUserID(),
+            "dob" : this._mssPersonalInfoModal.getDOB()
         }
         console.log("personal data is ::: ");
         console.log(boody);

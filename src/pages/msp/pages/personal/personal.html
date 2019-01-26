@@ -18,12 +18,19 @@
         <ion-list>
             <ion-item>
                 <ion-label floating>First Name</ion-label>
-                <ion-input type="text" formControlName="firstname" minlength="5" maxlength="50"></ion-input>
+                <ion-input type="text" formControlName="firstname" minlength="3" maxlength="20"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.firstname.invalid && (personalFormGroup.controls.firstname.dirty || personalFormGroup.controls.firstname.touched)">firstname required</div>
+            
+            <ion-item>
+                <ion-label floating>Middle Name</ion-label>
+                <ion-input type="text" formControlName="middlename" minlength="3" maxlength="20"></ion-input>
+            </ion-item>
+            <div class="divErrorMessage" *ngIf="personalFormGroup.controls.middlename.invalid && (personalFormGroup.controls.middlename.dirty || personalFormGroup.controls.middlename.touched)">middlename required</div>
+            
             <ion-item>
                 <ion-label floating>Last Name</ion-label>
-                <ion-input type="text" formControlName="lastname" minlength="5" maxlength="50"></ion-input>
+                <ion-input type="text" formControlName="lastname" minlength="3" maxlength="20"></ion-input>
             </ion-item>
             <div class="divErrorMessage" *ngIf="personalFormGroup.controls.lastname.invalid && (personalFormGroup.controls.lastname.dirty || personalFormGroup.controls.lastname.touched)">lastname required</div>
             <ion-item>

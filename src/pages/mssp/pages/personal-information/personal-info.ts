@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { AlertController } from 'ionic-angular'
 import { NavController } from 'ionic-angular';
-import S3Client from 'aws-s3';
 import { uploadFile } from 'aws-s3';
 import { MSSPPersonalInfoSaveService } from '../../../../service/mssp-personal-info-save-service/personal-info-save-service';
 import { MsspPersonalInfoSaveModal } from '../../../../app/common/modal/mssp/mssp-personal-info-save-modal/mssp-personal-info-save-modal';
@@ -13,12 +12,6 @@ import { InvitationCodeModal } from '../../../../app/common/modal/inviatation-co
 import { AppPreferences } from '@ionic-native/app-preferences';
 import { MSSPExistingPersonalInfoSaveService } from '../../../../service/mssp-existing-personal-info-save-service/mssp-existing-personal-info-save.service';
 import { App } from 'ionic-angular/components/app/app';
-
-const config = {
-    bucketName: 'o2_medicine_documents',
-    accessKeyId: 'AKIAITNA2AL24F2OXU5Q',
-    secretAccessKey: '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',
-}
 
 @IonicPage()
 @Component({
@@ -66,10 +59,6 @@ export class PersonalInfo{
     uploadDocument() : void {
         this._fileChooser.open().then((uri)=>{
             alert(uri);
-            uploadFile(uri,config).then((data)=>{
-                alert(data)
-            }).catch((err)=>{alert("error occurred ::"+err)})
-
         }).catch((exception)=>{
            this._alertCntrl.create({
                title : "Error Occurred",

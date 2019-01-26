@@ -18,6 +18,15 @@
         </ion-item>
         <div class="divErrorMessage" *ngIf="loginForm.controls.userPassword.invalid && (loginForm.controls.userPassword.dirty || loginForm.controls.userPassword.touched)">password required</div><br />
 
+        <ion-item no-lines>
+          <ion-label floating>Select Role</ion-label>
+          <ion-select formControlName="role">
+            <ion-option value="1">Mssp</ion-option>
+            <ion-option value="2">Msp</ion-option>
+            <ion-option value="3">Customer</ion-option>
+          </ion-select>
+        </ion-item>
+        
         <div style="display: flex;justify-content: center;">
           <button ion-button class="buttonColor" (click)="gotoMSSPHomePage()" [disabled]="!loginForm.valid">SIGN IN</button>
           <button class="buttonColor" ion-button (click)="askInvitationCode()">SIGN UP</button>

@@ -27,9 +27,16 @@ export class URLConfig {
     public getMSSPFinancialInfoSaveServiceURL() : string {
         return  "http://13.233.190.134:3000/api/finance/add";//"save_financial_info"
     }
-
+    //msp_finance
+    public getMSPFinancialInfoSaveServiceURL() : string {
+        return  "http://13.233.190.134:3000/api/msp_finance/add";//"save_financial_info"
+    }
     public getMSSPFinancialInfoFetchServiceURL() : string {
         return  "http://13.233.190.134:3000/api/finance/";
+    }
+
+    public getMSPFinancialInfoFetchServiceURL() : string {
+        return  "http://13.233.190.134:3000/api/msp_finance/";
     }
 
     public getGenerateInvitationCodeServiceURL() : string {

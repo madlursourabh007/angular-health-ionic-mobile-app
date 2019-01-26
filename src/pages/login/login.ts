@@ -12,7 +12,7 @@ import { AppPreferences } from '@ionic-native/app-preferences';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { FileChooser } from '@ionic-native/file-chooser';
 import { MsspPersonalInfoSaveModal } from '../../app/common/modal/mssp/mssp-personal-info-save-modal/mssp-personal-info-save-modal';
-
+import { DatePipe } from '@angular/common';
 /**
  * Generated class for the LoginPage page.
  *
@@ -49,10 +49,12 @@ export class LoginPage {
     private _appPref : AppPreferences,
     private _fileChooser : FileChooser,
     private _fileTransfer : FileTransfer,
+    private _datePipe : DatePipe
   ) {
     this.loginForm = this._loginFormBuilder.group({
       userName : ['', Validators.required],
-      userPassword : ['', Validators.required]
+      userPassword : ['', Validators.required],
+      role : ['',Validators.required]
     })
   }
 
@@ -63,7 +65,7 @@ export class LoginPage {
 
   askInvitationCode() : void {
     this.genarateProgressDialog("Generating invitation code. Please wait..")
-    this.genarateInvitaionCodeService.getInvitationCode().subscribe( data=>{
+    this.genarateInvitaionCodeService.getInvitationCode("mssp").subscribe( data=>{
       this._appPref.fetch('userid').then((id)=>{
         if(id == "" || id == undefined){
           this._appPref.store('userid',data._id).
@@ -98,6 +100,15 @@ export class LoginPage {
   }
 
   generateInvitationCodePopUP() : void {
+    if(this.loginForm.get('role').value == 1){
+      localStorage.setItem('role',"mssp")
+    }
+    else if(this.loginForm.get('role').value == 2){
+      localStorage.setItem('role',"msp")
+    }
+    else{
+      localStorage.setItem('role',"customer")
+    }
     const codeAlert = this._invitationCodeAlert.create({
       title : 'O2 Medicine',
       inputs : [{
@@ -171,6 +182,8 @@ export class LoginPage {
         this.personalInfoSaveModal.setBranch(data[0].bankDetails.branch);
         this.personalInfoSaveModal.setIfsc(data[0].bankDetails.ifsc);
         this.personalInfoSaveModal.setcanChecque(data[0].bankDetails.canChecque);
+        let latestDOB = this._datePipe.transform(data[0].dob,"dd/MM/yyyy");
+        //alert(latestDOB);
         this.personalInfoSaveModal.setDOB(data[0].dob);
         this.navCtrl.push('ProfileMainPage');
       },(err)=>{
@@ -215,69 +228,5 @@ export class LoginPage {
       this.loadingProgress.dismissLoading();
       alert("Error occurred while choosing file. "+err);
     })
-  }
-
-  MSPSign()
-  {
-    this.genarateProgressDialog("Generating invitation code. Please wait..")
-    this.genarateInvitaionCodeService.getInvitationCode().subscribe( data=>{
-      this._appPref.store('userid',data._id).then(data=>console.log(data)).catch(err=>console.error("pref error"));
-      this.invitationCodeModal.setID(data._id);
-      this.invitationCodeModal.setTempID(data.temID);
-      this.dismissGenerateProgressDialog();
-      this.MSPgenerateInvitationCodePopUP();
-    },err =>{
-      alert("Error occurred during generating invitation code "+err);
-    })
-  }
-   // this.navCtrl.setRoot('MspPage')
-   fetchMSPExistingPersonalInformation() : void {
-    this.genarateProgressDialog("Looking for existance of previously filled data. Please wait..");
-    this.personalInfoFetchService.fetchPersonalInfo(this.invitationCodeModal.getID()).subscribe((data)=>{
-      this.dismissGenerateProgressDialog();
-      console.log(data);
-      this.navCtrl.push('MspPage');
-    },(err)=>{
-      this.dismissGenerateProgressDialog();
-      console.error("Problem occurred during fetching existing personal info.. :: "+err);
-    })
-  }
-
-  MSPvalidateInvitationCode(invitationCode : string) : void {
-    this.genarateProgressDialog("Validating invitation code. Please wait.");
-    this.validateInvitationCodeService.validateInvitationCode(invitationCode).subscribe((data)=>{
-      console.log("Validated Invitation code result :: ");
-      console.log(data);
-      this.dismissGenerateProgressDialog();
-      this.fetchMSPExistingPersonalInformation();
-    },(err)=>{
-      this.dismissGenerateProgressDialog();
-      alert("Please provide correct invitation code");
-    })
-  }
-
-
-  MSPgenerateInvitationCodePopUP() : void {
-    const codeAlert = this._invitationCodeAlert.create({
-      title : 'O2 Medicine',
-      inputs : [{
-        name : 'invitationCode',
-        placeholder : 'Enter InvitationCode',
-        value : this.invitationCodeModal.getTempID()
-      }],
-      buttons : [{
-        text : 'NEXT',
-        handler : data =>{
-          this.MSPvalidateInvitationCode(data.invitationCode);
-        }
-      },
-      {
-        text : 'CANCEL',
-        handler : data =>{
-
-        }
-      }]
-    });
-    codeAlert.present();
   }
 }

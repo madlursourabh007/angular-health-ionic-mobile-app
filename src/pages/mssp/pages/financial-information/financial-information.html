@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content *ngIf="role=='mssp'">
     <form [formGroup]="financialFormGroup">
         <ion-list>
             <ion-grid>
@@ -38,6 +38,78 @@
         </ion-list>
         <div style="display: flex;justify-content: center;">
             <button ion-button class="buttonColor" [disabled]="!financialFormGroup.valid" (click)="saveFinancialInformation()">SAVE</button>
+                <!-- <button ion-button class="buttonColor" [disabled]="!personalFormGroup.valid">SUBMIT</button> -->
+        </div>
+    </form>
+</ion-content>
+
+<ion-content *ngIf="role=='msp'">
+    <form [formGroup]="mspFinancialFormGroup">
+        <ion-list>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-8>
+                        <ion-item no-lines>
+                            <ion-label class="ionLabelFont" floating>BG/LC Amt</ion-label>
+                            <ion-input type="number" formControlName="bglcAmount"></ion-input>
+                        </ion-item>
+                        <div class="divErrorMessage" *ngIf="mspFinancialFormGroup.controls.bglcAmount.invalid && (mspFinancialFormGroup.controls.bglcAmount.touched || mspFinancialFormGroup.controls.bglcAmount.dirty)">bg/lc amount required</div>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col-5>
+                        <ion-item >
+                            <ion-label  class="ionLabelFont" floating>BG/LC start Period</ion-label>
+                            <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="bglcPeriod"></ion-datetime>
+                        </ion-item>
+                        <div class="divErrorMessage" *ngIf="mspFinancialFormGroup.controls.bglcPeriod.invalid && (mspFinancialFormGroup.controls.bglcPeriod.touched || mspFinancialFormGroup.controls.bglcPeriod.dirty)">bg/lc period required</div>
+                    </ion-col>
+                    <ion-col col-5>
+                        <ion-item>
+                            <ion-label  class="ionLabelFont" floating>BG/LC end Period</ion-label>
+                            <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="bglcendPeriod"></ion-datetime>
+                        </ion-item>
+                        <div class="divErrorMessage" *ngIf="mspFinancialFormGroup.controls.bglcendPeriod.invalid && (mspFinancialFormGroup.controls.bglcendPeriod.touched || mspFinancialFormGroup.controls.bglcendPeriod.dirty)">bg/lc end period required</div>
+                    </ion-col>
+                    <ion-col col-2>
+                        <img src="https://bit.ly/2RnXJlR" height="50px;" style="margin-top:50%;">
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col-8>
+                        <ion-item no-lines>
+                            <ion-label  class="ionLabelFont" floating>FD Amt</ion-label>
+                            <ion-input type="number" formControlName="fdAmount"></ion-input>
+                        </ion-item>
+                        <div class="divErrorMessage" *ngIf="mspFinancialFormGroup.controls.fdAmount.invalid && (mspFinancialFormGroup.controls.fdAmount.touched || mspFinancialFormGroup.controls.fdAmount.dirty)">fd amount required</div>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col col-5>
+                        <ion-item no-lines>
+                            <ion-label class="ionLabelFont" floating>Lien start Period</ion-label>
+                            <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="lienPeriod"></ion-datetime>
+                        </ion-item>
+                        <div class="divErrorMessage" *ngIf="mspFinancialFormGroup.controls.lienPeriod.invalid && (mspFinancialFormGroup.controls.lienPeriod.touched || mspFinancialFormGroup.controls.lienPeriod.dirty)">lien period required</div>
+                    </ion-col>
+                    <ion-col col-5>
+                        <ion-item no-lines>
+                            <ion-label  class="ionLabelFont" floating>Lien end Period</ion-label>
+                            <ion-datetime displayformat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" formControlName="lienendPeriod"></ion-datetime>
+                        </ion-item>
+                        <div class="divErrorMessage" *ngIf="mspFinancialFormGroup.controls.lienendPeriod.invalid && (mspFinancialFormGroup.controls.lienendPeriod.touched || mspFinancialFormGroup.controls.lienendPeriod.dirty)">lien end period required</div>
+                    </ion-col>
+                    <ion-col col-2>
+                        <img src="https://bit.ly/2RnXJlR" height="50px;" style="margin-top:50%;">
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-list>
+        <div style="display: flex;justify-content: center;">
+            <button ion-button class="buttonColor" [disabled]="!mspFinancialFormGroup.valid" (click)="saveFinancialInformation()">SAVE</button>
                 <!-- <button ion-button class="buttonColor" [disabled]="!personalFormGroup.valid">SUBMIT</button> -->
         </div>
     </form>

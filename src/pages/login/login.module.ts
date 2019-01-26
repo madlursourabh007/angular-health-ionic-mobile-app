@@ -6,6 +6,7 @@ import { InvitationCodeModal } from '../../app/common/modal/inviatation-code-mod
 import { MsspGenerateInvitationCodeServie } from '../../service/mssp-generate-invitation-code-service/mssp-generate-invitation-code.service';
 import { MsspPersonalInfoFetchService } from '../../service/mssp-personal-info-fetch-service/mssp-personal-info-fetch.service';
 import { ValidateInvitationCodeService } from '../../service/mssp-validate-generated-invitation-code-service/mssp-validate-generated-invitation-code.service';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import { ValidateInvitationCodeService } from '../../service/mssp-validate-gener
     IonicPageModule.forChild(LoginPage),
     ReactiveFormsModule
   ],
-  providers : [ReactiveFormsModule,MsspGenerateInvitationCodeServie,MsspPersonalInfoFetchService,ValidateInvitationCodeService]
+  providers : [ReactiveFormsModule,MsspGenerateInvitationCodeServie,MsspPersonalInfoFetchService,ValidateInvitationCodeService,DatePipe]
 })
 export class LoginPageModule {}
